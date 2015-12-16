@@ -31,10 +31,10 @@ app.get('/api/v1/read/tickers', function(request, response){
 			ticker: 'rad'
 		}
 	]
-	response.send(products);
+	response.send(tickers);
 	response.end();
 });
 
-app.listen(5000, function(){
+app.listen(8888, function(){
 	console.log('listening on port 8888');	
 });

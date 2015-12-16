@@ -1,0 +1,26 @@
+<md-toolbar class="md-whiteframe-z3" layout-padding>
+    <div class="md-toolbar-tools">
+        <md-button ng-click="search()">
+            <span class="md-display-2"><i class="material-icons" layout-fill>search</i></span>
+        </md-button>
+      <md-input-container>
+        <label>enter search</label>
+        <input ng-model="searchTerms">
+      </md-input-container>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding>
+<div flex layout="column">
+    <div flex ng-repeat="ticker in tickers">
+      <h2>{{ticker.ticker}}</h2>
+    </div>
+</div>
+<div flex layout="column" layout-wrap>
+	<div flex>
+		<iframe ng-src="{{trendsURL}}" height="500px" width="100%"></iframe>
+	</div>
+	<div flex ng-repeat="item in items">
+		<h2>{{item}}</h2>
+	</div>
+</div>
+</md-content>

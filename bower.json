@@ -1,0 +1,23 @@
+{
+  "name": "Node.tech - Deploy an angular/node.js app in minutes",
+  "description": "A quick and easy expressjs + node app that deploys an angular app to a client in minutes",
+  "main": "app.js",
+  "authors": [
+    "Alex Wood"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ecommerce-technician/node.tech",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "image-engine-angular": "~1.0.0",
+    "material-design-icons": "~2.1.1"
+  }
+}

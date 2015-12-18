@@ -22,6 +22,7 @@ then
     ;;
     run)
      echo "run!"
+     forever app.js
     ;;
     *)
         help

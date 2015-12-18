@@ -23,7 +23,7 @@ app.get('/api/v1/read/options', function(request, response){
 			option: 'Learn'
 		}
 	]
-	response.send(products);
+	response.send(options);
 	response.end();
 });
 

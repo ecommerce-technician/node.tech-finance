@@ -9,9 +9,9 @@ angular.module('NodeTechApp')
       }
       $http({
       method: 'GET',
-      url: '/api/v1/read/products'
+      url: '/api/v1/read/options'
     }).then(function successCallback(response) {
-      $scope.products = response.data;
+      $scope.options = response.data;
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.

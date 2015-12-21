@@ -16,6 +16,10 @@ angular.module('NodeTechApp')
                 resolve: {
                     user: function () {
                         return {name: 'dummyUser', age: 50};
+                    },
+
+                    meta: function () {
+                        return {title: 'Node.Tech - Basic!'};
                     }
                 }
             })
@@ -27,7 +31,7 @@ angular.module('NodeTechApp')
                 resolve : {
                     page : function(){
                         return {
-                            title : "Node.Tech - Basic!"
+                            headline : 'welcome to node tech!'
                         };
                     }
                 }

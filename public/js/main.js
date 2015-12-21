@@ -62052,16 +62052,17 @@ angular.module('NodeTechApp').service(['$http',function($http){
 }]);
 angular.module('NodeTechApp')
 
-    .controller('RootController', function($scope, user){
-
+    .controller('RootController', function($scope, user, meta){
+        $scope.user = user;
+        $scope.meta = meta;
     });
 /**
  * Created by ecommerce-technician on 9/20/15.
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, user){
-      $scope.user = user
+    .controller('IndexController', function($scope, page){
+      $scope.page = page;
 
   });
 /**
@@ -62082,6 +62083,10 @@ angular.module('NodeTechApp')
                 resolve: {
                     user: function () {
                         return {name: 'dummyUser', age: 50};
+                    },
+
+                    meta: function () {
+                        return {title: 'Node.Tech - Basic!'};
                     }
                 }
             })
@@ -62093,7 +62098,7 @@ angular.module('NodeTechApp')
                 resolve : {
                     page : function(){
                         return {
-                            title : "Node.Tech - Basic!"
+                            headline : 'welcome to node tech!'
                         };
                     }
                 }

@@ -3,7 +3,7 @@
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, user){
-      $scope.user = user
+    .controller('IndexController', function($scope, page){
+      $scope.page = page;
 
   });

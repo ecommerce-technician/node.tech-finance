@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static('public'));
+app.use(express.static('public')); //todo nginx in production
 app.use(function(request, response, next) {
 	next();
 });
@@ -22,7 +22,7 @@ app.get('/api/v1/read/options', function(request, response){
 			id : 2,
 			option: 'Learn'
 		}
-	]
+	];
 	response.send(options);
 	response.end();
 });

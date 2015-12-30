@@ -1,4 +1,4 @@
-angular.module('NodeTechApp', ['ui.router', 'ngCookies', 'ngResource', 'ngMessages', 'ngMaterial'])
+angular.module('NodeTechApp', ['ui.router','ngCookies','ngResource','ngMessages','ngMaterial', 'googlechart'])
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')

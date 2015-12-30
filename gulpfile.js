@@ -30,6 +30,7 @@ gulp.task('scripts', function() {
         './node_modules/angular-aria/angular-aria.js',
         './node_modules/angular-messages/angular-messages.js',
         './node_modules/angular-cookies/angular-cookies.js',
+        './bower_components/angular-google-chart/ng-google-chart.js',
         './nodeTechApp/app.js',
         './nodeTechApp/services/*.js',
         './nodeTechApp/root-controller.js',

@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static('public'));
+
+app.use(express.static('public')); //todo nginx in production
+
 app.use(function(request, response, next) {
 	next();
 });
@@ -11,30 +13,22 @@ app.get('/', function(request, response){
 	response.sendFile(__dirname + '/public/index.html');
 }); 
 
-app.get('/api/v1/read/tickers', function(request, response){
-	var tickers = [
+app.get('/api/v1/read/options', function(request, response){
+	var options = [
 		{
 			id : 1,
-			ticker: 'immy'
+			option: 'Build'
 
 		},
 		{
 			id : 2,
-			ticker: 'sbux'
-		},
-		{
-			id : 3,
-			ticker: 'bzr'
-		},
-		{
-			id : 4,
-			ticker: 'rad'
+			option: 'Learn'
 		}
-	]
-	response.send(tickers);
+	];
+	response.send(options);
 	response.end();
 });
 
-app.listen(8888, function(){
-	console.log('listening on port 8888');	
+app.listen(5000, function(){
+	console.log('listening on port 5000');
 });

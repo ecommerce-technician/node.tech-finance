@@ -14,8 +14,7 @@ Or run these if you're having problems
 ```
 git clone https://github.com/ecommerce-technician/node.tech-base
 npm install
-bower install
->>>>>>> ntb/master
+sudo bower install --allow-root
 gulp scripts
 gulp sass
 forever app.js

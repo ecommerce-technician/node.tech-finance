@@ -29,14 +29,14 @@ angular.module('NodeTechApp')
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
-                    customData : function(GetTickerCorrect, $stateParams){
-                      return  GetTickerCorrect.getInfo($stateParams.myParam);
-                    },
-                    info : function(GetTickerCorrect, $stateParams){
+                    lookup : function(GetTickerCorrect, $stateParams){
                         return GetTickerCorrect.getInfo($stateParams.myParam);
                     },
-                    data : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getData($stateParams.myParam);
+                    interactive : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInteractive($stateParams.myParam);
+                    },
+                    quote : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getQuote($stateParams.myParam);
                     },
                     page : function(){
                         return {

@@ -24,15 +24,22 @@ angular.module('NodeTechApp')
         }
 
 
-        function getData(searchParam) {
+        function getInteractive(searchParam) {
             return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
-                return data.data[0];
+                return data;
+            }, null);
+        }
+
+        function getQuote(searchParam) {
+            return $http.get('/api/v1/markit/search/quote/' + searchParam).then(function (data) {
+                return data;
             }, null);
         }
 
         return {
             getInfo: getInfo,
-            getData: getData,
+            getInteractive: getInteractive,
+            getQuote: getQuote,
             myPublicVar: myPublicVar
         };
     });

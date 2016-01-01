@@ -62875,14 +62875,14 @@ angular.module('NodeTechApp')
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
-                    customData : function(GetTickerCorrect, $stateParams){
-                      return  GetTickerCorrect.getInfo($stateParams.myParam);
-                    },
-                    info : function(GetTickerCorrect, $stateParams){
+                    lookup : function(GetTickerCorrect, $stateParams){
                         return GetTickerCorrect.getInfo($stateParams.myParam);
                     },
-                    data : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getData($stateParams.myParam);
+                    interactive : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInteractive($stateParams.myParam);
+                    },
+                    quote : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getQuote($stateParams.myParam);
                     },
                     page : function(){
                         return {
@@ -62946,15 +62946,22 @@ angular.module('NodeTechApp')
         }
 
 
-        function getData(searchParam) {
+        function getInteractive(searchParam) {
             return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
-                return data.data[0];
+                return data;
+            }, null);
+        }
+
+        function getQuote(searchParam) {
+            return $http.get('/api/v1/markit/search/quote/' + searchParam).then(function (data) {
+                return data;
             }, null);
         }
 
         return {
             getInfo: getInfo,
-            getData: getData,
+            getInteractive: getInteractive,
+            getQuote: getQuote,
             myPublicVar: myPublicVar
         };
     });
@@ -62970,13 +62977,18 @@ angular.module('NodeTechApp')
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, $http, page, info, data){
+    .controller('IndexController', function($scope, $http, page, quote, lookup, interactive){
         $scope.page = page;
 
         $scope.text = 'sbux';
 
-        $scope.data = data;
-        $scope.info = info;
+        //$scope.interactivePositions = interactive.data.Positions;
+        //$scope.interactiveDates = interactive.data.Dates;
+        $scope.quote = quote;
+
+        //$scope.comboBox = [];
+
+        $scope.lookup = lookup;
 
         $scope.submit = function() {
             if ($scope.text) {
@@ -62984,97 +62996,6 @@ angular.module('NodeTechApp')
             }
         };
 
-        var chart1 = {};
-        chart1.type = "google.charts.Line";
-        chart1.displayed = false;
-        chart1.data = {
-            "cols": [{
-                id: "month",
-                label: "Month",
-                type: "string"
-            }, {
-                id: "laptop-id",
-                label: "Laptop",
-                type: "number"
-            }, {
-                id: "desktop-id",
-                label: "Desktop",
-                type: "number"
-            }, {
-                id: "server-id",
-                label: "Server",
-                type: "number"
-            }, {
-                id: "cost-id",
-                label: "Shipping",
-                type: "number"
-            }],
-            "rows": [{
-                c: [{
-                    v: "January"
-                }, {
-                    v: 19,
-                    f: "42 items"
-                }, {
-                    v: 12,
-                    f: "Ony 12 items"
-                }, {
-                    v: 7,
-                    f: "7 servers"
-                }, {
-                    v: 4
-                }]
-            }, {
-                c: [{
-                    v: "February"
-                }, {
-                    v: 13
-                }, {
-                    v: 1,
-                    f: "1 unit (Out of stock this month)"
-                }, {
-                    v: 12
-                }, {
-                    v: 2
-                }]
-            }, {
-                c: [{
-                    v: "March"
-                }, {
-                    v: 24
-                }, {
-                    v: 5
-                }, {
-                    v: 11
-                }, {
-                    v: 6
-                }
 
-                ]
-            }]
-        };
-
-        chart1.options = {
-            "title": "Sales per month",
-            "isStacked": "true",
-            "fill": 20,
-            "displayExactValues": true,
-            "vAxis": {
-                "title": "Sales unit",
-                "gridlines": {
-                    "count": 10
-                }
-            },
-            "hAxis": {
-                "title": "Date"
-            }
-        };
-        $scope.myChart = chart1;
-    }).value('googleChartApiConfig', {
-        version: '1.1',
-        optionalSettings: {
-            packages: ['line'],
-            language: 'en'
-        }
 
   });

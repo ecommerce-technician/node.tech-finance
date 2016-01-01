@@ -37,6 +37,14 @@ app.get('/api/v1/markit/search/interactive/:ticker', function(req, res){
 
 });
 
+app.get('/api/v1/markit/search/quote/:ticker', function(req, res){
+
+    var url = 'http://dev.markitondemand.com/Api/v2/Quote/json?symbol=' + req.params.ticker;
+
+    request(url).pipe(res);
+
+});
+
 app.listen(5000, function(){
 	console.log('listening on port 5000');
 });

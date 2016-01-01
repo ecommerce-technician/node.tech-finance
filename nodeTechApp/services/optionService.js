@@ -3,7 +3,8 @@
  */
 
 
-angular.module('NodeTechApp').service(['$http',function($http){
+angular.module('NodeTechApp')
+    .service('Options', ['$http', function($http){
 
     function getOptions() {
         return $http({
@@ -13,6 +14,7 @@ angular.module('NodeTechApp').service(['$http',function($http){
     }
 
     return {
-        getOptions : getOptions
+        options : getOptions
     };
+
 }]);

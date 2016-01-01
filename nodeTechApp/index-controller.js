@@ -3,21 +3,20 @@
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, page){
-      $scope.page = page;
+    .controller('IndexController', function($scope, $http, page, info, data){
+        $scope.page = page;
 
-        $scope.list = [];
-        $scope.text = 'hello';
+        $scope.text = 'sbux';
+
+        $scope.data = data;
+        $scope.info = info;
+
         $scope.submit = function() {
             if ($scope.text) {
-                $http.get({
-                }, function(response){
 
-                });
-                $scope.list.push(this.text);
-                $scope.text = '';
             }
         };
+
         var chart1 = {};
         chart1.type = "google.charts.Line";
         chart1.displayed = false;

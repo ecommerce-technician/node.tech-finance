@@ -6,20 +6,23 @@
 <md-content flex layout-padding>
     <h1>{{page.headline}}</h1>
 <div flex layout="column" layout-wrap>
-    <div flex ng-repeat="option in options" layout-align="center center">
-        <h2>{{option.option}}</h2>
-    </div>
-    <div>
-        <form ng-submit="submit()">
+    <div flex layout-padding>
+        <form ng-submit="submit()" name="searchForm" novalidate>
             Enter text and hit enter:
-            <input type="text" ng-model="text" name="text" />
-            <input type="submit" id="submit" value="Submit" />
-            <pre>list={{list}}</pre>
+            <input type="text" ng-model="text" name="text" required />
+            <input type="submit" id="submit" value="Submit" ng-disabled="searchForm.$invalid"  />
         </form>
     </div>
-    <br />
-    <div flex>
-        <div google-chart chart="myChart"></div>
+    <md-divider></md-divider>
+    <div flex layout-padding>
+        <span id="ticker-symbol"><strong>{{info.Symbol}}</strong></span>
+        <label for="ticker-symbol"><em>{{info.Name}}</em></label>
+        <div flex layout-align="center center">
+        </div>
+        <br />
+        <div flex>
+            <div google-chart chart="myChart"></div>
+        </div>
     </div>
 </div>
 </md-content>

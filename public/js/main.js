@@ -62845,6 +62845,55 @@ angular.module('NodeTechApp', ['ui.router','ngCookies','ngResource','ngMessages'
 
 
 /**
+ * Created by alex on 9/20/15.
+ */
+angular.module('NodeTechApp')
+    .config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
+
+        $locationProvider.html5Mode(true);  //Remove # in angular urls.
+
+        $urlRouterProvider.otherwise('/');
+
+        $stateProvider
+            .state('root', { //here we resolve all the application wide stuff.
+                url: '',
+                controller: 'RootController',
+                template: '<ui-view id="rootView"></ui-view>',
+                resolve: {
+                    user: function () {
+                        return {name: 'dummyUser', age: 50};
+                    },
+
+                    meta: function () {
+                        return {title: 'Node.Tech - Basic!'};
+                    }
+                }
+            })
+
+            .state('root.index', {
+                url: '/?myParam',
+                templateUrl: 'partials/index.html',
+                controller: 'IndexController',
+                resolve : {
+                    customData : function(GetTickerCorrect, $stateParams){
+                      return  GetTickerCorrect.getInfo($stateParams.myParam);
+                    },
+                    info : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInfo($stateParams.myParam);
+                    },
+                    data : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getData($stateParams.myParam);
+                    },
+                    page : function(){
+                        return {
+                            headline : 'welcome to node tech!'
+                        };
+                    }
+                }
+
+            });
+    }]);
+/**
  * Created by alex on 12/17/15.
  */
 
@@ -62856,7 +62905,8 @@ angular.module('NodeTechApp', ['ui.router','ngCookies','ngResource','ngMessages'
  */
 
 
-angular.module('NodeTechApp').service(['$http',function($http){
+angular.module('NodeTechApp')
+    .service('Options', ['$http', function($http){
 
     function getOptions() {
         return $http({
@@ -62866,9 +62916,49 @@ angular.module('NodeTechApp').service(['$http',function($http){
     }
 
     return {
-        getOptions : getOptions
+        options : getOptions
     };
+
 }]);
+/**
+ * Created by alex on 12/31/15.
+ */
+angular.module('NodeTechApp')
+    .service('GetOptionsData', function ($http) {
+        return {
+            get: function (callback) {
+                $http.get('/api/v1/read/options').success(function (data) {
+                    // prepare data here
+                    callback(data);
+                });
+            }
+        };
+    })
+
+    .service('GetTickerCorrect', function ($http) {
+
+        var myPublicVar = 'im public';
+
+        function getInfo(searchParam) {
+            return $http.get('/api/v1/markit/search/' + searchParam).then(function (data) {
+                return data.data[0];
+            }, null);
+        }
+
+
+        function getData(searchParam) {
+            return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
+                return data.data[0];
+            }, null);
+        }
+
+        return {
+            getInfo: getInfo,
+            getData: getData,
+            myPublicVar: myPublicVar
+        };
+    });
+
 angular.module('NodeTechApp')
 
     .controller('RootController', function($scope, user, meta){
@@ -62880,21 +62970,20 @@ angular.module('NodeTechApp')
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, page){
-      $scope.page = page;
+    .controller('IndexController', function($scope, $http, page, info, data){
+        $scope.page = page;
 
-        $scope.list = [];
-        $scope.text = 'hello';
+        $scope.text = 'sbux';
+
+        $scope.data = data;
+        $scope.info = info;
+
         $scope.submit = function() {
             if ($scope.text) {
-                $http.get({
-                }, function(response){
 
-                });
-                $scope.list.push(this.text);
-                $scope.text = '';
             }
         };
+
         var chart1 = {};
         chart1.type = "google.charts.Line";
         chart1.displayed = false;
@@ -62989,43 +63078,3 @@ angular.module('NodeTechApp')
         }
 
   });
-/**
- * Created by alex on 9/20/15.
- */
-angular.module('NodeTechApp')
-    .config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
-
-        $locationProvider.html5Mode(true);  //Remove # in angular urls.
-
-        $urlRouterProvider.otherwise('/');
-
-        $stateProvider
-            .state('root', { //here we resolve all the application wide stuff.
-                url: '',
-                controller: 'RootController',
-                template: '<ui-view id="rootView"></ui-view>',
-                resolve: {
-                    user: function () {
-                        return {name: 'dummyUser', age: 50};
-                    },
-
-                    meta: function () {
-                        return {title: 'Node.Tech - Basic!'};
-                    }
-                }
-            })
-
-            .state('root.index', {
-                url: '/',
-                templateUrl: 'partials/index.html',
-                controller: 'IndexController',
-                resolve : {
-                    page : function(){
-                        return {
-                            headline : 'welcome to node tech!'
-                        };
-                    }
-                }
-
-            });
-    }]);

@@ -37,3 +37,14 @@ url('./../icons/MaterialIcons-Regular.ttf') format('truetype');
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
+
+body {
+    font-family: "helvetica";
+    color : #333;
+}
+[ac-chart] {
+    float:left;
+    width: 48%;
+    height: 70vh;
+    margin: 0 1%;
+}

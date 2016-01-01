@@ -25,10 +25,19 @@ angular.module('NodeTechApp')
             })
 
             .state('root.index', {
-                url: '/',
+                url: '/?myParam',
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
+                    customData : function(GetTickerCorrect, $stateParams){
+                      return  GetTickerCorrect.getInfo($stateParams.myParam);
+                    },
+                    info : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInfo($stateParams.myParam);
+                    },
+                    data : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getData($stateParams.myParam);
+                    },
                     page : function(){
                         return {
                             headline : 'welcome to node tech!'

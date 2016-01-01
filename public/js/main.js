@@ -62878,11 +62878,14 @@ angular.module('NodeTechApp')
                     lookup : function(GetTickerCorrect, $stateParams){
                         return GetTickerCorrect.getInfo($stateParams.myParam);
                     },
-                    interactive : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInteractive($stateParams.myParam);
-                    },
+                    //interactive : function(GetTickerCorrect, $stateParams){
+                    //    return GetTickerCorrect.getInteractive($stateParams.myParam);
+                    //},
                     quote : function(GetTickerCorrect, $stateParams){
                         return GetTickerCorrect.getQuote($stateParams.myParam);
+                    },
+                    news : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getNews($stateParams.myParam);
                     },
                     page : function(){
                         return {
@@ -62946,11 +62949,11 @@ angular.module('NodeTechApp')
         }
 
 
-        function getInteractive(searchParam) {
-            return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
-                return data;
-            }, null);
-        }
+        //function getInteractive(searchParam) {
+        //    return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
+        //        return data;
+        //    }, null);
+        //}
 
         function getQuote(searchParam) {
             return $http.get('/api/v1/markit/search/quote/' + searchParam).then(function (data) {
@@ -62958,10 +62961,17 @@ angular.module('NodeTechApp')
             }, null);
         }
 
+        function getNews(searchParam) {
+            return $http.get('/api/v1/google-news/search/' + searchParam).then(function (data) {
+                return data;
+            }, null);
+        }
+
         return {
             getInfo: getInfo,
-            getInteractive: getInteractive,
+            //getInteractive: getInteractive,
             getQuote: getQuote,
+            getNews: getNews,
             myPublicVar: myPublicVar
         };
     });
@@ -62977,25 +62987,24 @@ angular.module('NodeTechApp')
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, $http, page, quote, lookup, interactive){
+    .controller('IndexController', function($scope, $http, $rootScope,$state, $stateParams, page, quote, lookup, news){
         $scope.page = page;
 
         $scope.text = 'sbux';
 
         //$scope.interactivePositions = interactive.data.Positions;
         //$scope.interactiveDates = interactive.data.Dates;
+
+        $scope.lookup = lookup;
         $scope.quote = quote;
+        $scope.news = news;
 
         //$scope.comboBox = [];
 
-        $scope.lookup = lookup;
-
         $scope.submit = function() {
             if ($scope.text) {
-
+                $state.go('root.index', {myParam : this.text});
             }
         };
-
-
 
   });

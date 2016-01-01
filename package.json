@@ -31,6 +31,7 @@
     "fetch": "^0.3.6",
     "firebase": "^2.3.2",
     "fs": "0.0.2",
+    "google-news": "^1.4.6",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-ng-annotate": "^1.1.0",

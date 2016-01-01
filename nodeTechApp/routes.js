@@ -32,11 +32,14 @@ angular.module('NodeTechApp')
                     lookup : function(GetTickerCorrect, $stateParams){
                         return GetTickerCorrect.getInfo($stateParams.myParam);
                     },
-                    interactive : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInteractive($stateParams.myParam);
-                    },
+                    //interactive : function(GetTickerCorrect, $stateParams){
+                    //    return GetTickerCorrect.getInteractive($stateParams.myParam);
+                    //},
                     quote : function(GetTickerCorrect, $stateParams){
                         return GetTickerCorrect.getQuote($stateParams.myParam);
+                    },
+                    news : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getNews($stateParams.myParam);
                     },
                     page : function(){
                         return {

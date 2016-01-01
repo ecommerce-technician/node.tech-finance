@@ -24,11 +24,11 @@ angular.module('NodeTechApp')
         }
 
 
-        function getInteractive(searchParam) {
-            return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
-                return data;
-            }, null);
-        }
+        //function getInteractive(searchParam) {
+        //    return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
+        //        return data;
+        //    }, null);
+        //}
 
         function getQuote(searchParam) {
             return $http.get('/api/v1/markit/search/quote/' + searchParam).then(function (data) {
@@ -36,10 +36,17 @@ angular.module('NodeTechApp')
             }, null);
         }
 
+        function getNews(searchParam) {
+            return $http.get('/api/v1/google-news/search/' + searchParam).then(function (data) {
+                return data;
+            }, null);
+        }
+
         return {
             getInfo: getInfo,
-            getInteractive: getInteractive,
+            //getInteractive: getInteractive,
             getQuote: getQuote,
+            getNews: getNews,
             myPublicVar: myPublicVar
         };
     });

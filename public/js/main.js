@@ -64654,10 +64654,10 @@ angular.module('NodeTechApp')
         for(i=0; i < news.data.responseData.results.length; i++) {
             $scope.news.push({
                 headline : news.data.responseData.results[i].title,
-                url : news.data.responseData.results[i].unescapedUrl
+                description: news.data.responseData.results[i].content,
+                url : news.data.responseData.results[i].unescapedUrl,
             });
         }
-        console.log(news.data.responseData.results[0].title);
 
         $scope.chartObject = {
             "type": "Line",
@@ -64694,10 +64694,18 @@ angular.module('NodeTechApp')
                     }
                 },
                 legend: { position: 'bottom' },
-                "hAxis": {
-                },
                 "tooltip": {
                     "isHtml": false
+                },
+                trendlines: {
+                    1: {
+                        type: 'linear',
+                        color: 'green',
+                        lineWidth: 3,
+                        opacity: 0.3,
+                        showR2: true,
+                        visibleInLegend: true
+                    }
                 }
             },
             "formatters": {},

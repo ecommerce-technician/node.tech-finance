@@ -14,9 +14,6 @@ angular.module('NodeTechApp')
         $scope.quote = quote;
         $scope.news = news;
 
-
-        //$scope.comboBox = [];
-
         $scope.submit = function() {
             $state.go('root.index', {ticker : this.text});
         };
@@ -36,7 +33,7 @@ angular.module('NodeTechApp')
                     },
                     {
                         "id": "close",
-                        "label": lookup.symbol,
+                        "label": lookup.Symbol,
                         "type": "number",
                         "p": {}
                     }

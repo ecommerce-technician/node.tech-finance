@@ -18,103 +18,23 @@
         <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
-    <div flex layout-margin>
-        <div google-chart chart="chartObject" ></div>
-    </div>
-    <div flex layout-margin ng-show="quote.data.Status=='SUCCESS'">
-        <md-tabs>
-            <md-tab label="Stocks" class="stock-slider">
-                <table>
-                    <tr>
-                        <td class="md-title">
-                            LastPrice
-                        </td>
-                        <td >
-                            {{quote.data.LastPrice}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Change
-                        </td>
-                        <td>
-                            {{quote.data.Change}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Change %
-                        </td>
-                        <td>
-                            {{quote.data.ChangePercent}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Market Cap
-                        </td>
-                        <td>
-                            {{quote.data.MarketCap}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Volume
-                        </td>
-                        <td>
-                            {{quote.data.Volume}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Change YTD
-                        </td>
-                        <td>
-                            {{quote.data.ChangeYTD}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Change % YTD
-                        </td>
-                        <td>
-                            {{quote.data.ChangePercentYTD}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            High
-                        </td>
-                        <td>
-                            {{quote.data.High}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Low
-                        </td>
-                        <td>
-                            {{quote.data.Low}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="md-title">
-                            Open
-                        </td>
-                        <td>
-                            {{quote.data.Open}}
-                        </td>
-                    </tr>
+    <div flex google-chart chart="chartObject" ></div>
+    <md-tabs md-dynamic-height>
+        <md-tab label="Stocks" class="stock-slider">
+            <table>
+                <tr ng-repeat="(key, val) in quote.data">
+                    <td class="md-title">{{key}}</td>
+                    <td >{{val}}</td></tr>
                 </table>
-            </md-tab>
-            <md-tab label="Press">
-                <ul>
-                    <li ng-repeat="item in news">{{item.headline}}</li>
-                </ul>
-            </md-tab>
-            <md-tab label="Social"></md-tab>
-            <md-tab label="Combine"></md-tab>
-        </md-tabs>
-    </div>
+        </md-tab>
+        <md-tab label="Press">
+            <ul>
+
+                <li ng-repeat="item in news"><a ng-href="{{item.url}}">{{item.headline}}</a></li>
+            </ul>
+        </md-tab>
+        <md-tab label="Social"></md-tab>
+        <md-tab label="Combine"></md-tab>
+    </md-tabs>
 </div>
 </md-content>

@@ -20,19 +20,20 @@ angular.module('NodeTechApp')
 
         for(i=0; i < news.data.responseData.results.length; i++) {
             $scope.news.push({
-                headline : news.data.responseData.results[i].title
+                headline : news.data.responseData.results[i].title,
+                url : news.data.responseData.results[i].unescapedUrl
             });
         }
         console.log(news.data.responseData.results[0].title);
 
         $scope.chartObject = {
-            "type": "LineChart",
+            "type": "Line",
             "displayed": false,
             "data": {
                 "cols": [
                     {
                         "id": "date",
-                        "label": "Month",
+                        "label": "date",
                         "type": "string",
                         "p": {}
                     },
@@ -46,18 +47,21 @@ angular.module('NodeTechApp')
                 "rows": []
             },
             "options": {
-                "title": "Closing Val by Date",
+                chart: {
+                    "title": "Closing Value",
+                    subtitle: 'by Date in US Dollars'
+                },
                 "isStacked": "true",
                 "fill": 20,
+                'height':500,
                 "displayExactValues": true,
                 "vAxis": {
-                    "title": "$",
                     "gridlines": {
                         "count": 10
                     }
                 },
+                legend: { position: 'bottom' },
                 "hAxis": {
-                    "title": "Date"
                 },
                 "tooltip": {
                     "isHtml": false

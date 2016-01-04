@@ -2,7 +2,7 @@ angular.module('NodeTechApp', ['ui.router','ngCookies','ngResource','ngMessages'
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
-            .accentPalette('pink')
+            .accentPalette('brown')
             .backgroundPalette('grey')
             .warnPalette('red');
     })

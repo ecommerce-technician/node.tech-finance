@@ -1,8 +1,6 @@
 var express = require('express');
 var app = express();
 var http = require('http');
-var GoogleNews, googleNews, track;
-var GoogleNews = require('google-news')
 var request = require('request');
 
 app.use(express.static('public')); //todo nginx in production
@@ -14,13 +12,6 @@ app.use(function(request, response, next) {
 app.get('/', function(request, response){
 	//loads index file + angular app
 	response.sendFile(__dirname + '/public/index.html');
-}); 
-
-app.get('/api/v1/read/options', function(request, response){
-	var options = {bim : 'bam'};
-
-	response.send(options);
-	response.end();
 });
 
 app.get('/api/v1/markit/search/:ticker', function(req, res){
@@ -47,22 +38,13 @@ app.get('/api/v1/markit/search/quote/:ticker', function(req, res){
 
 });
 
-app.get('/api/v1/google-news/search/:search', function(req, res){
-    googleNews = new GoogleNews();
+app.get('/api/v1/google-news/search/:ticker', function(req, res){
 
-    googleNews.stream(req.params.search, function(stream) {
+    var url='http://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + req.params.ticker;
 
-        stream.on(GoogleNews.DATA, function(data) {
-            return data.title;
-        });
+    request(url).pipe(res);
 
-        stream.on(GoogleNews.ERROR, function(error) {
-            return console.log('Error Event received... ' + error);
-        });
-    });
 
-    //response.send(resp.statusCode);
-    res.end();
 });
 
 app.listen(5000, function(){

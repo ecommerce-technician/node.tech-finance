@@ -18,6 +18,10 @@
         <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
+    {{lookup}}
+    <div flex layout-margin>
+        <div google-chart chart="chartObject" ></div>
+    </div>
     <div flex layout-margin ng-show="quote.data.Status=='SUCCESS'">
         <md-tabs>
             <md-tab label="Stocks" class="stock-slider">
@@ -105,7 +109,6 @@
                 </table>
             </md-tab>
             <md-tab label="Press"></md-tab>
-                {{news}}
             <md-tab label="Social"></md-tab>
             <md-tab label="Combine"></md-tab>
         </md-tabs>

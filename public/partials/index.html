@@ -19,7 +19,7 @@
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
     <div flex google-chart chart="chartObject" ></div>
-    <md-tabs md-dynamic-height>
+    <md-tabs md-dynamic-height md-swipe-content="true">
         <md-tab label="Stocks" class="stock-slider">
             <table>
                 <tr ng-repeat="(key, val) in quote.data">

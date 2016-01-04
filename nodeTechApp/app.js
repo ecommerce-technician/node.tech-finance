@@ -1,9 +1,8 @@
 angular.module('NodeTechApp', ['ui.router','ngCookies','ngResource','ngMessages','ngMaterial', 'googlechart'])
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
+            .primaryPalette('grey')
             .accentPalette('brown')
-            .backgroundPalette('grey')
             .warnPalette('red');
     })
     .run(function ($rootScope) {

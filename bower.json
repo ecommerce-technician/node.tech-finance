@@ -21,6 +21,7 @@
     "material-design-icons": "~2.1.1",
     "angular-ui-router": "~0.2.15",
     "techan": "andredumas/techan.js#~0.6.0",
-    "angular-google-chart": "~0.1.0"
+    "angular-google-chart": "~0.1.0",
+    "angular-material": "master"
   }
 }

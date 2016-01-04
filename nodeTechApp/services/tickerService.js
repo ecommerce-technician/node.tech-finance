@@ -37,7 +37,7 @@ angular.module('NodeTechApp')
 
         function getNews(searchParam) {
             return $http.get('/api/v1/google-news/search/' + searchParam).then(function (data) {
-                return data.data.responseData.results;
+                return data;
             }, null);
         }
 

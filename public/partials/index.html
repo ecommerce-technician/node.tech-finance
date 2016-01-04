@@ -107,7 +107,11 @@
                     </tr>
                 </table>
             </md-tab>
-            <md-tab label="Press"></md-tab>
+            <md-tab label="Press">
+                <ul>
+                    <li ng-repeat="item in news">{{item.headline}}</li>
+                </ul>
+            </md-tab>
             <md-tab label="Social"></md-tab>
             <md-tab label="Combine"></md-tab>
         </md-tabs>

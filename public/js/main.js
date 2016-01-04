@@ -62962,7 +62962,7 @@ angular.module('NodeTechApp')
 
         function getNews(searchParam) {
             return $http.get('/api/v1/google-news/search/' + searchParam).then(function (data) {
-                return data.data.responseData.results;
+                return data;
             }, null);
         }
 
@@ -62995,13 +62995,18 @@ angular.module('NodeTechApp')
         $scope.closingData = [];
         $scope.lookup = lookup;
         $scope.quote = quote;
-        $scope.news = news;
+        $scope.news = [];
 
         $scope.submit = function() {
             $state.go('root.index', {ticker : this.text});
         };
 
-        console.log(lookup.Symbol);
+        for(i=0; i < news.data.responseData.results.length; i++) {
+            $scope.news.push({
+                headline : news.data.responseData.results[i].title
+            });
+        }
+        console.log(news.data.responseData.results[0].title);
 
         $scope.chartObject = {
             "type": "LineChart",

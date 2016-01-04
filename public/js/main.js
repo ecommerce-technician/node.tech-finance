@@ -63029,12 +63029,12 @@ angular.module('NodeTechApp')
                 "rows": []
             },
             "options": {
-                "title": "Sales per month",
+                "title": "Closing Val by Date",
                 "isStacked": "true",
                 "fill": 20,
                 "displayExactValues": true,
                 "vAxis": {
-                    "title": "Sales unit",
+                    "title": "$",
                     "gridlines": {
                         "count": 10
                     }

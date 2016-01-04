@@ -7924,8 +7924,5 @@ body {
 [ac-chart] {
   float: left;
   width: 48%;
-  height: 70vh;
+  height: 100%;
   margin: 0 1%; }
-
-.stock-slider {
-  height: 700px; }

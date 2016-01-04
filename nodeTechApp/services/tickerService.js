@@ -23,16 +23,29 @@ angular.module('NodeTechApp')
             }, null);
         }
 
-
-        function getData(searchParam) {
+        function getInteractive(searchParam) {
             return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
-                return data.data[0];
+                return data;
+            }, null);
+        }
+
+        function getQuote(searchParam) {
+            return $http.get('/api/v1/markit/search/quote/' + searchParam).then(function (data) {
+                return data;
+            }, null);
+        }
+
+        function getNews(searchParam) {
+            return $http.get('/api/v1/google-news/search/' + searchParam).then(function (data) {
+                return data.data.responseData.results;
             }, null);
         }
 
         return {
             getInfo: getInfo,
-            getData: getData,
+            getInteractive: getInteractive,
+            getQuote: getQuote,
+            getNews: getNews,
             myPublicVar: myPublicVar
         };
     });

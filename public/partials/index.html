@@ -15,14 +15,102 @@
     </div>
     <md-divider></md-divider>
     <div flex layout-padding>
-        <span id="ticker-symbol"><strong>{{info.Symbol}}</strong></span>
-        <label for="ticker-symbol"><em>{{info.Name}}</em></label>
-        <div flex layout-align="center center">
-        </div>
-        <br />
-        <div flex>
-            <div google-chart chart="myChart"></div>
-        </div>
+        <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
+        <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
+    </div>
+    <div flex layout-margin>
+        <div google-chart chart="chartObject" ></div>
+    </div>
+    <div flex layout-margin ng-show="quote.data.Status=='SUCCESS'">
+        <md-tabs>
+            <md-tab label="Stocks" class="stock-slider">
+                <table>
+                    <tr>
+                        <td class="md-title">
+                            LastPrice
+                        </td>
+                        <td >
+                            {{quote.data.LastPrice}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Change
+                        </td>
+                        <td>
+                            {{quote.data.Change}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Change %
+                        </td>
+                        <td>
+                            {{quote.data.ChangePercent}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Market Cap
+                        </td>
+                        <td>
+                            {{quote.data.MarketCap}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Volume
+                        </td>
+                        <td>
+                            {{quote.data.Volume}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Change YTD
+                        </td>
+                        <td>
+                            {{quote.data.ChangeYTD}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Change % YTD
+                        </td>
+                        <td>
+                            {{quote.data.ChangePercentYTD}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            High
+                        </td>
+                        <td>
+                            {{quote.data.High}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Low
+                        </td>
+                        <td>
+                            {{quote.data.Low}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="md-title">
+                            Open
+                        </td>
+                        <td>
+                            {{quote.data.Open}}
+                        </td>
+                    </tr>
+                </table>
+            </md-tab>
+            <md-tab label="Press"></md-tab>
+            <md-tab label="Social"></md-tab>
+            <md-tab label="Combine"></md-tab>
+        </md-tabs>
     </div>
 </div>
 </md-content>

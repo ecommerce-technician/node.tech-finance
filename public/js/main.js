@@ -62871,18 +62871,21 @@ angular.module('NodeTechApp')
             })
 
             .state('root.index', {
-                url: '/?myParam',
+                url: '/?ticker',
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
-                    customData : function(GetTickerCorrect, $stateParams){
-                      return  GetTickerCorrect.getInfo($stateParams.myParam);
+                    lookup : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInfo($stateParams.ticker);
                     },
-                    info : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInfo($stateParams.myParam);
+                    interactive : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInteractive($stateParams.ticker);
                     },
-                    data : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getData($stateParams.myParam);
+                    quote : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getQuote($stateParams.ticker);
+                    },
+                    news : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getNews($stateParams.ticker);
                     },
                     page : function(){
                         return {
@@ -62945,16 +62948,29 @@ angular.module('NodeTechApp')
             }, null);
         }
 
-
-        function getData(searchParam) {
+        function getInteractive(searchParam) {
             return $http.get('/api/v1/markit/search/interactive/' + searchParam).then(function (data) {
-                return data.data[0];
+                return data;
+            }, null);
+        }
+
+        function getQuote(searchParam) {
+            return $http.get('/api/v1/markit/search/quote/' + searchParam).then(function (data) {
+                return data;
+            }, null);
+        }
+
+        function getNews(searchParam) {
+            return $http.get('/api/v1/google-news/search/' + searchParam).then(function (data) {
+                return data.data.responseData.results;
             }, null);
         }
 
         return {
             getInfo: getInfo,
-            getData: getData,
+            getInteractive: getInteractive,
+            getQuote: getQuote,
+            getNews: getNews,
             myPublicVar: myPublicVar
         };
     });
@@ -62970,111 +62986,80 @@ angular.module('NodeTechApp')
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, $http, page, info, data){
+    .controller('IndexController', function($scope, $http, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news){
+
         $scope.page = page;
 
-        $scope.text = 'sbux';
+        var interactive = interactive;
 
-        $scope.data = data;
-        $scope.info = info;
+        $scope.closingData = [];
+        $scope.lookup = lookup;
+        $scope.quote = quote;
+        $scope.news = news;
 
         $scope.submit = function() {
-            if ($scope.text) {
-
-            }
+            $state.go('root.index', {ticker : this.text});
         };
 
-        var chart1 = {};
-        chart1.type = "google.charts.Line";
-        chart1.displayed = false;
-        chart1.data = {
-            "cols": [{
-                id: "month",
-                label: "Month",
-                type: "string"
-            }, {
-                id: "laptop-id",
-                label: "Laptop",
-                type: "number"
-            }, {
-                id: "desktop-id",
-                label: "Desktop",
-                type: "number"
-            }, {
-                id: "server-id",
-                label: "Server",
-                type: "number"
-            }, {
-                id: "cost-id",
-                label: "Shipping",
-                type: "number"
-            }],
-            "rows": [{
-                c: [{
-                    v: "January"
-                }, {
-                    v: 19,
-                    f: "42 items"
-                }, {
-                    v: 12,
-                    f: "Ony 12 items"
-                }, {
-                    v: 7,
-                    f: "7 servers"
-                }, {
-                    v: 4
-                }]
-            }, {
-                c: [{
-                    v: "February"
-                }, {
-                    v: 13
-                }, {
-                    v: 1,
-                    f: "1 unit (Out of stock this month)"
-                }, {
-                    v: 12
-                }, {
-                    v: 2
-                }]
-            }, {
-                c: [{
-                    v: "March"
-                }, {
-                    v: 24
-                }, {
-                    v: 5
-                }, {
-                    v: 11
-                }, {
-                    v: 6
-                }
+        console.log(lookup.Symbol);
 
-                ]
-            }]
-        };
-
-        chart1.options = {
-            "title": "Sales per month",
-            "isStacked": "true",
-            "fill": 20,
-            "displayExactValues": true,
-            "vAxis": {
-                "title": "Sales unit",
-                "gridlines": {
-                    "count": 10
+        $scope.chartObject = {
+            "type": "LineChart",
+            "displayed": false,
+            "data": {
+                "cols": [
+                    {
+                        "id": "date",
+                        "label": "Month",
+                        "type": "string",
+                        "p": {}
+                    },
+                    {
+                        "id": "close",
+                        "label": lookup.Symbol,
+                        "type": "number",
+                        "p": {}
+                    }
+                ],
+                "rows": []
+            },
+            "options": {
+                "title": "Sales per month",
+                "isStacked": "true",
+                "fill": 20,
+                "displayExactValues": true,
+                "vAxis": {
+                    "title": "Sales unit",
+                    "gridlines": {
+                        "count": 10
+                    }
+                },
+                "hAxis": {
+                    "title": "Date"
+                },
+                "tooltip": {
+                    "isHtml": false
                 }
             },
-            "hAxis": {
-                "title": "Date"
+            "formatters": {},
+            "view": {
+                "columns": [
+                    0,
+                    1
+                ]
             }
-        };
-        $scope.myChart = chart1;
-    }).value('googleChartApiConfig', {
-        version: '1.1',
-        optionalSettings: {
-            packages: ['line'],
-            language: 'en'
+        }
+        for(i=0; i < interactive.data.Dates.length; i++) {
+            $scope.chartObject.data.rows.push({
+                c : [
+                    {
+                        "v": interactive.data.Dates[i]
+                    },
+                    {
+                        "v": interactive.data.Elements[0].DataSeries.close.values[i]
+                    }
+                ]
+            })
         }
 
   });

@@ -25,18 +25,21 @@ angular.module('NodeTechApp')
             })
 
             .state('root.index', {
-                url: '/?myParam',
+                url: '/?ticker',
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
-                    customData : function(GetTickerCorrect, $stateParams){
-                      return  GetTickerCorrect.getInfo($stateParams.myParam);
+                    lookup : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInfo($stateParams.ticker);
                     },
-                    info : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInfo($stateParams.myParam);
+                    interactive : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getInteractive($stateParams.ticker);
                     },
-                    data : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getData($stateParams.myParam);
+                    quote : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getQuote($stateParams.ticker);
+                    },
+                    news : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getNews($stateParams.ticker);
                     },
                     page : function(){
                         return {

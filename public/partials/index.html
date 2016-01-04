@@ -19,7 +19,7 @@
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
     <div flex google-chart chart="chartObject" ></div>
-    <md-tabs md-dynamic-height>
+    <md-tabs md-dynamic-height md-swipe-content="true">
         <md-tab label="Stocks" class="stock-slider">
             <table>
                 <tr ng-repeat="(key, val) in quote.data">
@@ -28,10 +28,15 @@
                 </table>
         </md-tab>
         <md-tab label="Press">
-            <ul>
-
-                <li ng-repeat="item in news"><a ng-href="{{item.url}}">{{item.headline}}</a></li>
-            </ul>
+            <md-subheader class="md-no-sticky">{{lookup.Name}} News</md-subheader>
+            <md-list-item class="md-3-line" ng-repeat="item in news">
+                <div class="md-list-item-text" layout="column">
+                    <h3><a ng-href="{{item.url}}">{{item.headline}}</a></h3>
+                    <h4>{{ item.description }}</h4>
+                </div>
+            </md-list-item>
+            <md-divider ></md-divider>
+            </md-list>
         </md-tab>
         <md-tab label="Social"></md-tab>
         <md-tab label="Combine"></md-tab>

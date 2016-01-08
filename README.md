@@ -15,7 +15,6 @@ Or run these if you're having problems
 git clone https://github.com/ecommerce-technician/node.tech-base
 npm install
 bower install
->>>>>>> ntb/master
 gulp scripts
 gulp sass
 forever app.js

@@ -64675,6 +64675,12 @@ angular.module('NodeTechApp')
                         "label": lookup.Symbol,
                         "type": "number",
                         "p": {}
+                    },
+                    {
+                        "id": "average",
+                        "label": "average",
+                        "type": "number",
+                        "p": {}
                     }
                 ],
                 "rows": []
@@ -64712,7 +64718,8 @@ angular.module('NodeTechApp')
             "view": {
                 "columns": [
                     0,
-                    1
+                    1,
+                    2
                 ]
             }
         }
@@ -64724,6 +64731,9 @@ angular.module('NodeTechApp')
                     },
                     {
                         "v": interactive.data.Elements[0].DataSeries.close.values[i]
+                    },
+                    {
+                        "v": 50
                     }
                 ]
             })

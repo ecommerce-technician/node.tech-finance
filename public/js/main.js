@@ -64551,13 +64551,6 @@ angular.module('NodeTechApp')
  */
 
 
-//app
-
-/**
- * Created by alex on 12/17/15.
- */
-
-
 angular.module('NodeTechApp')
     .service('Options', ['$http', function($http){
 
@@ -64625,12 +64618,6 @@ angular.module('NodeTechApp')
         };
     });
 
-angular.module('NodeTechApp')
-
-    .controller('RootController', function($scope, user, meta){
-        $scope.user = user;
-        $scope.meta = meta;
-    });
 /**
  * Created by ecommerce-technician on 9/20/15.
  */

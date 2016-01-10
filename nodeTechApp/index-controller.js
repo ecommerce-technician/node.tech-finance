@@ -98,6 +98,7 @@ angular.module('NodeTechApp')
             }
         }
         for(i=0; i < interactive.data.Dates.length; i++) {
+
             $scope.chartObject.data.rows.push({
                 c : [
                     {

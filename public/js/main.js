@@ -64733,10 +64733,22 @@ angular.module('NodeTechApp')
                         "v": interactive.data.Elements[0].DataSeries.close.values[i]
                     },
                     {
-                        "v": 50
+                        "v": average()
                     }
                 ]
             })
+        }
+
+        function average() {
+
+            var sum = 0;
+            for( var i = 0; i < interactive.data.Elements[0].DataSeries.close.values.length; i++ ){
+                sum += interactive.data.Elements[0].DataSeries.close.values[i]
+            }
+
+            var avg = sum/interactive.data.Elements[0].DataSeries.close.values.length;
+
+            return avg;
         }
 
   });

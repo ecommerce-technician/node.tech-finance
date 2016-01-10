@@ -1,9 +1,11 @@
 #!/bin/bash
 # Node.tech simple node launcher!
 function help () {
-    echo "Node.tech - a simple to deploy barebones app with angular"
-    echo "install = install the packages"
-    echo "run     = deploy the app"
+    echo "Node.tech-finance - a simple way to connect to the market quickly"
+    echo "install     = install the packages"
+    echo "run         = deploy the app"
+    echo "tensorflow-linux = get real crazy with linux"
+    echo "tensorflow-mac = mac version, you still get real crazy"
 }
 if [ $1 ]
 then
@@ -23,6 +25,20 @@ then
     run)
      echo "run!"
      forever app.js
+    ;;
+    tensorflow-linux)
+     echo "installing tensorflow on linux (hopefully lolz)"
+     sudo apt-get install python-pip python-dev
+     echo "installing tensorflow"
+     sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
+    ;;
+    tensorflow-mac)
+     sudo git clone https://github.com/ecommerce-technician/tensorflow.git vendor/tensorflow
+     echo "installing tensorflow on linux (hopefully, yolo)"
+     sudo easy_install pip
+     sudo easy_install --upgrade six
+     echo "installing tensorflow"
+     sudo pip install --upgrade https://storage.googleapis.com/tensorflow/mac/tensorflow-0.6.0-py2-none-any.whl
     ;;
     *)
         help

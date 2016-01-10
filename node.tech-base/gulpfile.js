@@ -22,20 +22,19 @@ gulp.task('sass', function () {
 /*concatenate js*/
 gulp.task('scripts', function() {
     gulp.src([
-        './bower_components/angular/angular.js',
+        './node_modules/angular/angular.js',
         './bower_components/angular-ui-router/release/angular-ui-router.js',
-        './bower_components/angular-resource/angular-resource.js',
-        './bower_components/angular-material/angular-material.js',
-        './bower_components/angular-animate/angular-animate.js',
-        './bower_components/angular-aria/angular-aria.js',
-        './bower_components/angular-messages/angular-messages.js',
-        './bower_components/angular-cookies/angular-cookies.js',
-        './vendor/angular-google-chart/ng-google-chart.js',
+        './node_modules/angular-resource/angular-resource.js',
+        './node_modules/angular-material/angular-material.js',
+        './node_modules/angular-animate/angular-animate.js',
+        './node_modules/angular-aria/angular-aria.js',
+        './node_modules/angular-messages/angular-messages.js',
+        './node_modules/angular-cookies/angular-cookies.js',
         './nodeTechApp/app.js',
-        './nodeTechApp/routes.js',
         './nodeTechApp/services/*.js',
         './nodeTechApp/root-controller.js',
-        './nodeTechApp/index-controller.js'
+        './nodeTechApp/index-controller.js',
+        './nodeTechApp/routes.js'
     ])
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./public/js/'));

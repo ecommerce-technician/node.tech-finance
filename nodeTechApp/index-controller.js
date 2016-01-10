@@ -48,12 +48,6 @@ angular.module('NodeTechApp')
                         "label": lookup.Symbol + " close",
                         "type": "number",
                         "p": {}
-                    },
-                    {
-                        "id": "high",
-                        "label": lookup.Symbol + " high",
-                        "type": "number",
-                        "p": {}
                     }
                 ],
                 "rows": []
@@ -92,8 +86,7 @@ angular.module('NodeTechApp')
                 "columns": [
                     0,
                     1,
-                    2,
-                    3
+                    2
                 ]
             }
         }
@@ -108,9 +101,6 @@ angular.module('NodeTechApp')
                     },
                     {
                         "v": interactive.data.Elements[0].DataSeries.close.values[i]
-                    },
-                    {
-                        "v": interactive.data.Elements[0].DataSeries.high.values[i]
                     }
                 ]
             })

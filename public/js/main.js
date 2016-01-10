@@ -64675,7 +64675,7 @@ angular.module('NodeTechApp')
                         "label": lookup.Symbol + " close",
                         "type": "number",
                         "p": {}
-                    },
+                    }
                 ],
                 "rows": []
             },

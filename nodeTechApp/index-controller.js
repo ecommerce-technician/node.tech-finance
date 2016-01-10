@@ -38,8 +38,20 @@ angular.module('NodeTechApp')
                         "p": {}
                     },
                     {
+                        "id": "open",
+                        "label": lookup.Symbol + " open",
+                        "type": "number",
+                        "p": {}
+                    },
+                    {
                         "id": "close",
-                        "label": lookup.Symbol,
+                        "label": lookup.Symbol + " close",
+                        "type": "number",
+                        "p": {}
+                    },
+                    {
+                        "id": "high",
+                        "label": lookup.Symbol + " high",
                         "type": "number",
                         "p": {}
                     }
@@ -79,7 +91,9 @@ angular.module('NodeTechApp')
             "view": {
                 "columns": [
                     0,
-                    1
+                    1,
+                    2,
+                    3
                 ]
             }
         }
@@ -90,7 +104,13 @@ angular.module('NodeTechApp')
                         "v": interactive.data.Dates[i]
                     },
                     {
+                        "v": interactive.data.Elements[0].DataSeries.open.values[i]
+                    },
+                    {
                         "v": interactive.data.Elements[0].DataSeries.close.values[i]
+                    },
+                    {
+                        "v": interactive.data.Elements[0].DataSeries.high.values[i]
                     }
                 ]
             })

@@ -1,0 +1,13 @@
+<md-toolbar class="md-whiteframe-z3" layout-padding>
+  <div>
+    {{meta.title}}
+  </div>
+</md-toolbar>
+<md-content flex layout-padding>
+    <h1>{{page.headline}}</h1>
+<div flex layout="row" layout-wrap>
+  <div flex ng-repeat="option in options" layout-align="center center">
+    <h2>{{option.option}}</h2>
+  </div>
+</div>
+</md-content>

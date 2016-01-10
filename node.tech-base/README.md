@@ -1,5 +1,5 @@
-# node.tech finance
-## Creates a simple node finance watching app with angular
+# node.tech
+## Creates a simple node app with angular
 
 ### To Run:
 
@@ -14,7 +14,7 @@ Or run these if you're having problems
 ```
 git clone https://github.com/ecommerce-technician/node.tech-base
 npm install
-sudo bower install --allow-root
+bower install
 gulp scripts
 gulp sass
 forever app.js

@@ -38,8 +38,14 @@ angular.module('NodeTechApp')
                         "p": {}
                     },
                     {
+                        "id": "open",
+                        "label": lookup.Symbol + " open",
+                        "type": "number",
+                        "p": {}
+                    },
+                    {
                         "id": "close",
-                        "label": lookup.Symbol,
+                        "label": lookup.Symbol + " close",
                         "type": "number",
                         "p": {}
                     },
@@ -86,7 +92,8 @@ angular.module('NodeTechApp')
                 "columns": [
                     0,
                     1,
-                    2
+                    2,
+                    3
                 ]
             }
         }
@@ -95,6 +102,9 @@ angular.module('NodeTechApp')
                 c : [
                     {
                         "v": interactive.data.Dates[i]
+                    },
+                    {
+                        "v": interactive.data.Elements[0].DataSeries.open.values[i]
                     },
                     {
                         "v": interactive.data.Elements[0].DataSeries.close.values[i]

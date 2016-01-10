@@ -64676,6 +64676,12 @@ angular.module('NodeTechApp')
                         "type": "number",
                         "p": {}
                     },
+                    {
+                        "id": "average",
+                        "label": "average",
+                        "type": "number",
+                        "p": {}
+                    }
                 ],
                 "rows": []
             },
@@ -64713,7 +64719,8 @@ angular.module('NodeTechApp')
                 "columns": [
                     0,
                     1,
-                    2
+                    2,
+                    3
                 ]
             }
         }
@@ -64728,9 +64735,24 @@ angular.module('NodeTechApp')
                     },
                     {
                         "v": interactive.data.Elements[0].DataSeries.close.values[i]
+                    },
+                    {
+                        "v": average()
                     }
                 ]
             })
+        }
+
+        function average() {
+
+            var sum = 0;
+            for( var i = 0; i < interactive.data.Elements[0].DataSeries.close.values.length; i++ ){
+                sum += interactive.data.Elements[0].DataSeries.close.values[i]
+            }
+
+            var avg = sum/interactive.data.Elements[0].DataSeries.close.values.length;
+
+            return avg;
         }
 
   });

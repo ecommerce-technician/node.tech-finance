@@ -20,13 +20,14 @@
     "image-engine-angular": "~1.0.0",
     "material-design-icons": "~2.1.1",
     "angular-ui-router": "~0.2.15",
-    "techan": "andredumas/techan.js#~0.6.0",
-    "angular-google-chart": "~0.1.0",
     "angular-material": "master",
     "angular-animate": "~1.4.8",
     "angular-aria": "~1.4.8",
     "angular-messages": "~1.4.8",
     "angular-cookies": "~1.4.8",
-    "angular-resource": "~1.4.8"
+    "angular-resource": "~1.4.8",
+    "angular-nvd3": "~1.0.5",
+    "d3": "~3.5.12",
+    "nvd3": "~1.8.1"
   }
 }

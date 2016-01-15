@@ -18,7 +18,7 @@
         <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
-    <div flex google-chart chart="chartObject" ></div>
+    <nvd3 flex options="options" data="data"></nvd3>
     <md-tabs md-dynamic-height md-swipe-content="true">
         <md-tab label="Stocks" class="stock-slider">
             <table>

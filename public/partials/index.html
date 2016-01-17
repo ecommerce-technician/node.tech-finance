@@ -6,6 +6,7 @@
 <md-content flex layout-padding>
     <h1>{{page.headline}}</h1>
 <div flex layout="column" layout-wrap>
+    {{test}}
     <div flex layout-padding>
         <form ng-submit="submit()" name="searchForm" novalidate>
             Enter text and hit enter:
@@ -43,3 +44,4 @@
     </md-tabs>
 </div>
 </md-content>
+{{data[0].values}}

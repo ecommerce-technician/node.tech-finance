@@ -87283,7 +87283,7 @@ angular.module('NodeTechApp')
                 xAxis: {
                     axisLabel: 'Dates',
                     tickFormat: function(d) {
-                        return d3.time.format('%x')(new Date(new Date() - (20000 * 86400000) + (d * 86400000)));
+                        return d3.time.format('%Y-%m-%dT%X')(new Date());
                     },
                     showMaxMin: false
                 },

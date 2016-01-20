@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uncss = require('gulp-uncss');
-var uglify = require('')
+var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
 
 /*compile sass and css*/

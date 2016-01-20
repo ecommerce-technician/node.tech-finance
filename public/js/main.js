@@ -87242,8 +87242,8 @@ nv.version = "1.8.1";
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, $http, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news){
-        
+    .controller('IndexController', function($scope, $http, $sce, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news){
+
         var interactive = interactive;
         $scope.page = page;
         $scope.closingData = [];
@@ -87259,8 +87259,8 @@ angular.module('NodeTechApp')
         //News
         for(i=0; i < news.data.responseData.results.length; i++) {
             $scope.news.push({
-                headline : news.data.responseData.results[i].title,
-                description: news.data.responseData.results[i].content,
+                headline : $sce.trustAsHtml(news.data.responseData.results[i].title),
+                description: $sce.trustAsHtml(news.data.responseData.results[i].content),
                 url : news.data.responseData.results[i].unescapedUrl,
             });
         }

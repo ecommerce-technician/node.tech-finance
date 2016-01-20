@@ -9,8 +9,10 @@ var ngAnnotate = require('gulp-ng-annotate');
 
 /*compile sass and css*/
 gulp.task('sass', function () {
-    gulp.src(['./node_modules/angular-material/angular-material.scss',
-        './assets/css/*.css'
+    gulp.src([
+        './node_modules/angular-material/angular-material.scss',
+        './assets/css/*.css',
+        './bower_components/nvd3/build/nv.d3.css'
     ])
         .pipe(sass({
             includePaths: require('node-bourbon').includePaths
@@ -30,11 +32,13 @@ gulp.task('scripts', function() {
         './bower_components/angular-aria/angular-aria.js',
         './bower_components/angular-messages/angular-messages.js',
         './bower_components/angular-cookies/angular-cookies.js',
-        './vendor/angular-google-chart/ng-google-chart.js',
         './nodeTechApp/app.js',
         './nodeTechApp/routes.js',
         './nodeTechApp/services/*.js',
         './nodeTechApp/root-controller.js',
+        './bower_components/d3/d3.js',
+        './bower_components/nvd3/build/nv.d3.js',
+        './bower_components/angular-nvd3/dist/angular-nvd3.js',
         './nodeTechApp/index-controller.js'
     ])
         .pipe(concat('main.js'))

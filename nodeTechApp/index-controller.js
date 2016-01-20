@@ -26,107 +26,65 @@ angular.module('NodeTechApp')
             });
         }
 
-        $scope.chartObject = {
-            "type": "Line",
-            "displayed": false,
-            "data": {
-                "cols": [
-                    {
-                        "id": "date",
-                        "label": "date",
-                        "type": "string",
-                        "p": {}
-                    },
-                    {
-                        "id": "open",
-                        "label": lookup.Symbol + " open",
-                        "type": "number",
-                        "p": {}
-                    },
-                    {
-                        "id": "close",
-                        "label": lookup.Symbol + " close",
-                        "type": "number",
-                        "p": {}
-                    },
-                    {
-                        "id": "average",
-                        "label": "average",
-                        "type": "number",
-                        "p": {}
-                    }
-                ],
-                "rows": []
-            },
-            "options": {
-                chart: {
-                    "title": "Closing Value",
-                    subtitle: 'by Date in US Dollars'
+
+        $scope.options = {
+            chart: {
+                type: 'candlestickBarChart',
+                height: 450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 40,
+                    left: 60
                 },
-                "isStacked": "true",
-                "fill": 20,
-                'height':500,
-                "displayExactValues": true,
-                "vAxis": {
-                    "gridlines": {
-                        "count": 10
-                    }
+                x: function(d){ return d['date']; },
+                y: function(d){ return d['close']; },
+                duration: 100,
+
+                xAxis: {
+                    axisLabel: 'Dates',
+                    tickFormat: function(d) {
+                        return d3.time.format('%x')(new Date(d));
+                    },
+                    showMaxMin: false
                 },
-                legend: { position: 'bottom' },
-                "tooltip": {
-                    "isHtml": false
+
+                yAxis: {
+                    axisLabel: 'Stock Price',
+                    tickFormat: function(d){
+                        return '$' + d3.format(',.1f')(d);
+                    },
+                    showMaxMin: false
                 },
-                trendlines: {
-                    1: {
-                        type: 'linear',
-                        color: 'green',
-                        lineWidth: 3,
-                        opacity: 0.3,
-                        showR2: true,
-                        visibleInLegend: true
-                    }
+                zoom: {
+                    enabled: true,
+                    scaleExtent: [1, 10],
+                    useFixedDomain: false,
+                    useNiceScale: false,
+                    horizontalOff: false,
+                    verticalOff: true,
+                    unzoomEventType: 'dblclick.zoom'
                 }
-            },
-            "formatters": {},
-            "view": {
-                "columns": [
-                    0,
-                    1,
-                    2,
-                    3
-                ]
             }
-        }
+        };
+
+        $scope.data = [];
+        $scope.data.push({values : []});
+        //$scope.data.push({values: [
+            //{"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35}
+
+        //]});
+
         for(i=0; i < interactive.data.Dates.length; i++) {
-
-            $scope.chartObject.data.rows.push({
-                c : [
-                    {
-                        "v": interactive.data.Dates[i]
-                    },
-                    {
-                        "v": interactive.data.Elements[0].DataSeries.open.values[i]
-                    },
-                    {
-                        "v": interactive.data.Elements[0].DataSeries.close.values[i]
-                    },
-                    {
-                        "v": average()
-                    }
-                ]
-            })
+            console.log(Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]));
+            $scope.data[0].values.push({
+                    "date": Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]),
+                    "open": interactive.data.Elements[0].DataSeries.open.values[i],
+                    "high": interactive.data.Elements[0].DataSeries.high.values[i],
+                    "low": interactive.data.Elements[0].DataSeries.low.values[i],
+                    "close": interactive.data.Elements[0].DataSeries.close.values[i],
+                    "volume": 160363400,
+                    "adjusted": 164.35
+            });
         }
-
-        function average() {
-
-            var sum = 0;
-            for( var i = 0; i < interactive.data.Elements[0].DataSeries.close.values.length; i++ ){
-                sum += interactive.data.Elements[0].DataSeries.close.values[i]
-            }
-
-            var avg = sum/interactive.data.Elements[0].DataSeries.close.values.length;
-
-            return avg;
-        }
-
   });

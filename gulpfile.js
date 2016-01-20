@@ -43,10 +43,6 @@ gulp.task('scripts', function() {
     ])
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./public/js/'));
-
-    /*gulp.src(['./assets/js/issues/main.js'])
-        .pipe(concat('main.js'))
-        .pipe(gulp.dest('./public/js/issues/'));*/
 });
 
 /*compress js*/

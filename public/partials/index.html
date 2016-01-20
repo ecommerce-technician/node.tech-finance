@@ -6,12 +6,12 @@
 <md-content flex layout-padding>
     <h1>{{page.headline}}</h1>
 <div flex layout="column" layout-wrap>
-    {{test}}
     <div flex layout-padding>
         <form ng-submit="submit()" name="searchForm" novalidate>
-            Enter text and hit enter:
-            <input type="text" ng-model="text" name="text" required />
-            <input type="submit" id="submit" value="Submit" ng-disabled="searchForm.$invalid"  />
+            <md-input-container>
+                <label>Search by ticker:</label>
+                <input type="text" ng-model="text" name="text" required>
+            </md-input-container>
         </form>
     </div>
     <md-divider></md-divider>
@@ -19,14 +19,16 @@
         <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
-    <nvd3 flex options="options" data="data"></nvd3>
     <md-tabs md-dynamic-height md-swipe-content="true">
-        <md-tab label="Stocks" class="stock-slider">
+        <md-tab label="Summary">
             <table>
                 <tr ng-repeat="(key, val) in quote.data">
                     <td class="md-title">{{key}}</td>
                     <td >{{val}}</td></tr>
                 </table>
+        </md-tab>
+        <md-tab label="OHLC Chart">
+            <nvd3 flex options="options" data="data"></nvd3>
         </md-tab>
         <md-tab label="Press">
             <md-subheader class="md-no-sticky">{{lookup.Name}} News</md-subheader>
@@ -44,4 +46,3 @@
     </md-tabs>
 </div>
 </md-content>
-{{data[0].values}}

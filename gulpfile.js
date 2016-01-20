@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uncss = require('gulp-uncss');
+var uglify = require('')
 var ngAnnotate = require('gulp-ng-annotate');
 
 /*compile sass and css*/
@@ -43,10 +44,6 @@ gulp.task('scripts', function() {
     ])
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./public/js/'));
-
-    /*gulp.src(['./assets/js/issues/main.js'])
-        .pipe(concat('main.js'))
-        .pipe(gulp.dest('./public/js/issues/'));*/
 });
 
 /*compress js*/

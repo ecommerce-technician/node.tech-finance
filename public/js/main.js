@@ -87283,7 +87283,11 @@ angular.module('NodeTechApp')
                 xAxis: {
                     axisLabel: 'Dates',
                     tickFormat: function(d) {
+<<<<<<< HEAD
                         return d3.time.format('%Y-%m-%dT%X')(new Date());
+=======
+                        return d3.time.format('%x')(new Date(d));
+>>>>>>> master
                     },
                     showMaxMin: false
                 },
@@ -87315,8 +87319,9 @@ angular.module('NodeTechApp')
         //]});
 
         for(i=0; i < interactive.data.Dates.length; i++) {
+            console.log(Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]));
             $scope.data[0].values.push({
-                    "date": Date.parse(interactive.data.Dates[i]),
+                    "date": Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]),
                     "open": interactive.data.Elements[0].DataSeries.open.values[i],
                     "high": interactive.data.Elements[0].DataSeries.high.values[i],
                     "low": interactive.data.Elements[0].DataSeries.low.values[i],

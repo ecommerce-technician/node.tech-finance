@@ -87243,20 +87243,20 @@ nv.version = "1.8.1";
 angular.module('NodeTechApp')
 
     .controller('IndexController', function($scope, $http, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news){
-
-        $scope.page = page;
-
+        
         var interactive = interactive;
-
+        $scope.page = page;
         $scope.closingData = [];
         $scope.lookup = lookup;
         $scope.quote = quote;
         $scope.news = [];
 
+        //Reloads page if new ticker is searched
         $scope.submit = function() {
             $state.go('root.index', {ticker : this.text});
         };
 
+        //News
         for(i=0; i < news.data.responseData.results.length; i++) {
             $scope.news.push({
                 headline : news.data.responseData.results[i].title,
@@ -87265,7 +87265,7 @@ angular.module('NodeTechApp')
             });
         }
 
-
+        //OHLC D3 Chart
         $scope.options = {
             chart: {
                 type: 'candlestickBarChart',
@@ -87283,11 +87283,7 @@ angular.module('NodeTechApp')
                 xAxis: {
                     axisLabel: 'Dates',
                     tickFormat: function(d) {
-<<<<<<< HEAD
-                        return d3.time.format('%Y-%m-%dT%X')(new Date());
-=======
                         return d3.time.format('%x')(new Date(d));
->>>>>>> master
                     },
                     showMaxMin: false
                 },
@@ -87313,13 +87309,8 @@ angular.module('NodeTechApp')
 
         $scope.data = [];
         $scope.data.push({values : []});
-        //$scope.data.push({values: [
-            //{"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35}
-
-        //]});
 
         for(i=0; i < interactive.data.Dates.length; i++) {
-            console.log(Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]));
             $scope.data[0].values.push({
                     "date": Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]),
                     "open": interactive.data.Elements[0].DataSeries.open.values[i],

@@ -5,19 +5,19 @@ angular.module('NodeTechApp')
 
     .controller('IndexController', function($scope, $http, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news){
 
-        $scope.page = page;
-
         var interactive = interactive;
-
+        $scope.page = page;
         $scope.closingData = [];
         $scope.lookup = lookup;
         $scope.quote = quote;
         $scope.news = [];
 
+        //Reloads page if new ticker is searched
         $scope.submit = function() {
             $state.go('root.index', {ticker : this.text});
         };
 
+        //News
         for(i=0; i < news.data.responseData.results.length; i++) {
             $scope.news.push({
                 headline : news.data.responseData.results[i].title,
@@ -26,7 +26,7 @@ angular.module('NodeTechApp')
             });
         }
 
-
+        //OHLC D3 Chart
         $scope.options = {
             chart: {
                 type: 'candlestickBarChart',
@@ -72,7 +72,6 @@ angular.module('NodeTechApp')
         $scope.data.push({values : []});
 
         for(i=0; i < interactive.data.Dates.length; i++) {
-            console.log(Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]));
             $scope.data[0].values.push({
                     "date": Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]),
                     "open": interactive.data.Elements[0].DataSeries.open.values[i],

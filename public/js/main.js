@@ -87251,9 +87251,14 @@ angular.module('NodeTechApp')
         $scope.quote = quote;
         $scope.news = [];
 
+        //Loading bar
+        $scope.loading = false;
+
         //Reloads page if new ticker is searched
         $scope.submit = function() {
-            $state.go('root.index', {ticker : this.text});
+            $scope.loading = true;
+            $state.go('root.index', {ticker : this.text})
+                .then(function(){ $scope.loading = false;})
         };
 
         //News

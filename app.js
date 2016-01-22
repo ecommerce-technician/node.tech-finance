@@ -2,6 +2,15 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var request = require('request');
+var Twitter = require('twitter');
+var env = require('./env.json');
+
+var twitterClient = new Twitter({
+    consumer_key: env.TWITTER_CONSUMER_KEY,
+    consumer_secret: env.TWITTER_CONSUMER_SECRET,
+    access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET
+});
 
 app.use(express.static('public')); //todo nginx in production
 
@@ -17,7 +26,6 @@ app.get('/', function(request, response){
 app.get('/api/v1/markit/search/:ticker', function(req, res){
 
     var url = 'http://dev.markitondemand.com/MODApis/Api/v2/Lookup/json?input=' + req.params.ticker;
-
     request(url).pipe(res);
 
 });
@@ -33,7 +41,6 @@ app.get('/api/v1/markit/search/interactive/:ticker', function(req, res){
 app.get('/api/v1/markit/search/quote/:ticker', function(req, res){
 
     var url = 'http://dev.markitondemand.com/Api/v2/Quote/json?symbol=' + req.params.ticker;
-
     request(url).pipe(res);
 
 });
@@ -41,10 +48,17 @@ app.get('/api/v1/markit/search/quote/:ticker', function(req, res){
 app.get('/api/v1/google-news/search/:ticker', function(req, res){
 
     var url='http://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + req.params.ticker;
-
     request(url).pipe(res);
+});
 
+app.get('/api/v1/twitter/search/:ticker', function(req, res){
+    twitterClient.get('search/tweets', {q:req.params.ticker,result_type:'recent',count:4,lang:'en'}, function(error, tweets, res){
+        shipIt(tweets)
+    });
 
+    function shipIt(tweets) {
+        res.send(tweets);
+    }
 });
 
 app.listen(5000, function(){

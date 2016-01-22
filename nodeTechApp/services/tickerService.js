@@ -41,11 +41,18 @@ angular.module('NodeTechApp')
             }, null);
         }
 
+        function getTweets(searchParam) {
+            return $http.get('/api/v1/twitter/search/' + "$" + searchParam).then(function (data) {
+                return data;
+            }, null);
+        }
+
         return {
             getInfo: getInfo,
             getInteractive: getInteractive,
             getQuote: getQuote,
             getNews: getNews,
+            getTweets: getTweets,
             myPublicVar: myPublicVar
         };
     });

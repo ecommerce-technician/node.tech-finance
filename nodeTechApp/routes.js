@@ -19,7 +19,7 @@ angular.module('NodeTechApp')
                     },
 
                     meta: function () {
-                        return {title: 'Node.Tech - Basic!'};
+                        return {title: 'Node.Tech Finance'};
                     }
                 }
             })
@@ -43,8 +43,11 @@ angular.module('NodeTechApp')
                     },
                     page : function(){
                         return {
-                            headline : 'welcome to node tech!'
+                            headline : 'welcome to node tech finance!'
                         };
+                    },
+                    tweets : function(GetTickerCorrect, $stateParams){
+                        return GetTickerCorrect.getTweets($stateParams.ticker);
                     }
                 }
 

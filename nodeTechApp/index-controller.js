@@ -3,7 +3,7 @@
  */
 angular.module('NodeTechApp')
 
-    .controller('IndexController', function($scope, $http, $sce, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news){
+    .controller('IndexController', function($scope, $http, $sce, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news, tweets){
 
         var interactive = interactive;
         $scope.page = page;
@@ -11,6 +11,9 @@ angular.module('NodeTechApp')
         $scope.lookup = lookup;
         $scope.quote = quote;
         $scope.news = [];
+        $scope.tweets = [];
+
+
 
         //Loading bar
         $scope.loading = false;
@@ -28,6 +31,17 @@ angular.module('NodeTechApp')
                 headline : $sce.trustAsHtml(news.data.responseData.results[i].title),
                 description: $sce.trustAsHtml(news.data.responseData.results[i].content),
                 url : news.data.responseData.results[i].unescapedUrl,
+                time : news.data.responseData.results[i].publishedDate
+            });
+        }
+
+        //Social
+        for(i=0; i < tweets.data.statuses.length; i++) {
+            $scope.tweets.push({
+                headline : tweets.data.statuses[i].user.screen_name,
+                description: $sce.trustAsHtml(tweets.data.statuses[i].text),
+                url : $sce.trustAsHtml("http://www.twitter.com/" + tweets.data.statuses[i].user.screen_name),
+                time : tweets.data.statuses[i].created_at
             });
         }
 

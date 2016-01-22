@@ -50,8 +50,8 @@ app.get('/api/v1/google-news/search/:ticker', function(req, res){
     request(url).pipe(res);
 });
 
-app.get('/api/v1/twitter/search/:search', function(req, res){
-    twitterClient.get('search/tweets', {q:req.params.search,result_type:'recent',count:99,lang:'en'}, function(error, tweets, res){
+app.get('/api/v1/twitter/search/:ticker', function(req, res){
+    twitterClient.get('search/tweets', {q:req.params.ticker,result_type:'recent',count:4,lang:'en'}, function(error, tweets, res){
         shipIt(tweets)
     });
 

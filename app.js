@@ -3,12 +3,13 @@ var app = express();
 var http = require('http');
 var request = require('request');
 var Twitter = require('twitter');
+var env = require('./env.json');
 
 var twitterClient = new Twitter({
-    consumer_key: "tq88B1mMCwbFxYSu1GC2mMv9a",
-    consumer_secret: "cn1HfbXH3RbPe3L6RDd4Lr1gaH6gPRDCVzBFeLmOJ5YPU3irmw",
-    access_token_key: "3165869263-MWZFHU2K7KPyh3armcu22q3OWdPz9BUdNQnK5zs",
-    access_token_secret: "yNl7T6mBhKhmlha34KKZ4zDyEBsxtJI1RqYlcfHP8OCKi"
+    consumer_key: env.TWITTER_CONSUMER_KEY,
+    consumer_secret: env.TWITTER_CONSUMER_SECRET,
+    access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 app.use(express.static('public')); //todo nginx in production

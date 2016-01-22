@@ -2,6 +2,14 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var request = require('request');
+var Twitter = require('twitter');
+
+var twitterClient = new Twitter({
+    consumer_key: "tq88B1mMCwbFxYSu1GC2mMv9a",
+    consumer_secret: "cn1HfbXH3RbPe3L6RDd4Lr1gaH6gPRDCVzBFeLmOJ5YPU3irmw",
+    access_token_key: "3165869263-MWZFHU2K7KPyh3armcu22q3OWdPz9BUdNQnK5zs",
+    access_token_secret: "yNl7T6mBhKhmlha34KKZ4zDyEBsxtJI1RqYlcfHP8OCKi"
+});
 
 app.use(express.static('public')); //todo nginx in production
 
@@ -17,7 +25,6 @@ app.get('/', function(request, response){
 app.get('/api/v1/markit/search/:ticker', function(req, res){
 
     var url = 'http://dev.markitondemand.com/MODApis/Api/v2/Lookup/json?input=' + req.params.ticker;
-
     request(url).pipe(res);
 
 });
@@ -33,7 +40,6 @@ app.get('/api/v1/markit/search/interactive/:ticker', function(req, res){
 app.get('/api/v1/markit/search/quote/:ticker', function(req, res){
 
     var url = 'http://dev.markitondemand.com/Api/v2/Quote/json?symbol=' + req.params.ticker;
-
     request(url).pipe(res);
 
 });
@@ -41,10 +47,17 @@ app.get('/api/v1/markit/search/quote/:ticker', function(req, res){
 app.get('/api/v1/google-news/search/:ticker', function(req, res){
 
     var url='http://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + req.params.ticker;
-
     request(url).pipe(res);
+});
 
+app.get('/api/v1/twitter/search/:search', function(req, res){
+    twitterClient.get('search/tweets', {q:req.params.search,result_type:'recent',count:99,lang:'en'}, function(error, tweets, res){
+        shipIt(tweets)
+    });
 
+    function shipIt(tweets) {
+        res.send(tweets);
+    }
 });
 
 app.listen(5000, function(){

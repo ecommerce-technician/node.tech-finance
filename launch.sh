@@ -3,9 +3,10 @@
 function help () {
     echo "Node.tech-finance - a simple way to connect to the market quickly"
     echo "install     = install the packages"
-    echo "run         = deploy the app"
+    echo "run         = deploy the app in dev"
     echo "tensorflow-linux = get real crazy with linux"
     echo "tensorflow-mac = mac version, you still get real crazy"
+    echo "produce     = generate single page app"
 }
 if [ $1 ]
 then
@@ -39,6 +40,10 @@ then
      sudo easy_install --upgrade six
      echo "installing tensorflow"
      sudo pip install --upgrade https://storage.googleapis.com/tensorflow/mac/tensorflow-0.6.0-py2-none-any.whl
+    ;;
+    produce)
+     sudo mkdir ../fintech_production
+     sudo cp -r index.html public ../fintech_production/
     ;;
     *)
         help

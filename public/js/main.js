@@ -63840,9 +63840,6 @@ angular.module('NodeTechApp')
             template: $sce.trustAsHtml("<md-tab label=\"Summary\"><table><tr ng-repeat=\"(key, val) in quote.data\"><td class=\"md-title\">{{key}}</td><td>{{val}}</td></tr></table></md-tab>")
         }
     });
-
-
-
 angular.module('NodeTechApp')
 
     .controller('RootController', function($scope, user, meta){
@@ -87359,13 +87356,12 @@ angular.module('NodeTechApp')
                     showMaxMin: false
                 },
                 zoom: {
-                    enabled: true,
+                    enabled: false,
                     scaleExtent: [1, 10],
                     useFixedDomain: false,
                     useNiceScale: false,
                     horizontalOff: false,
                     verticalOff: true,
-                    unzoomEventType: 'dblclick.zoom'
                 }
             }
         };

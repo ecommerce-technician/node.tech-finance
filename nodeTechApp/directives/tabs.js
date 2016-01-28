@@ -29,5 +29,3 @@ angular.module('NodeTechApp')
             template: $sce.trustAsHtml("<md-tab label=\"Summary\"><table><tr ng-repeat=\"(key, val) in quote.data\"><td class=\"md-title\">{{key}}</td><td>{{val}}</td></tr></table></md-tab>")
         }
     });
-
-

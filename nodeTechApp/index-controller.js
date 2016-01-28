@@ -101,4 +101,4 @@ angular.module('NodeTechApp')
                     "adjusted": 164.35
             });
         }
-  });
+  })

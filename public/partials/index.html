@@ -23,10 +23,30 @@
         <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
     </div>
     <md-tabs md-dynamic-height md-swipe-content="true">
-        <summary-tab></summary-tab>
-        <ohlc-tab></ohlc-tab>
-        <press-tab></press-tab>
-        <social-tab></social-tab>
+        <md-tab label="Summary">
+            <md-subheader class="md-no-sticky">
+                {{lookup.Name}} Today Summary
+            </md-subheader>
+            <summary-tab></summary-tab>
+        </md-tab>
+        <md-tab label="OHLC Chart">
+            <md-subheader class="md-no-sticky">
+                {{lookup.Name}} OHLC Charts
+            </md-subheader>
+            <ohlc-tab></ohlc-tab>
+        </md-tab>
+        <md-tab label="Press">
+            <md-subheader class="md-no-sticky">
+                {{lookup.Name}} News
+            </md-subheader>
+            <press-tab></press-tab>
+        </md-tab>
+        <md-tab label="Social">
+            <md-subheader class="md-no-sticky">
+                {{lookup.Name}} Social mentions
+            </md-subheader>
+            <social-tab></social-tab>
+        </md-tab>
     </md-tabs>
 </div>
 </md-content>

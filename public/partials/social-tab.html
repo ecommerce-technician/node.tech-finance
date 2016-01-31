@@ -1,0 +1,1 @@
+<md-list-item class="md-3-line" ng-repeat="item in tweets | limitTo : 10"><div class="md-list-item-text" layout="column"> <a ng-href="{{item.url}}"><h3>{{item.headline}}</h3></a><h4 ng-bind-html="item.description"></h4></div></md-list-item>

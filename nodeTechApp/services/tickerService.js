@@ -13,7 +13,7 @@ angular.module('NodeTechApp')
         };
     })
 
-    .service('GetTickerCorrect', function ($http) {
+    .service('GetTicker', function ($http) {
 
         var myPublicVar = 'im public';
 

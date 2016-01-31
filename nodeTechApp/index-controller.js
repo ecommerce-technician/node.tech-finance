@@ -8,9 +8,9 @@ angular.module('NodeTechApp')
         var interactive = interactive;
         $scope.page = page;
         $scope.closingData = [];
+        $scope.news = [];
         $scope.lookup = lookup;
         $scope.quote = quote;
-        $scope.news = [];
         $scope.tweets = [];
 
 
@@ -25,14 +25,15 @@ angular.module('NodeTechApp')
                 .then(function(){ $scope.loading = false;})
         };
 
-        //News
-        for(i=0; i < news.data.responseData.results.length; i++) {
+        //press
+        for (i = 0; i < news.data.responseData.results.length; i++) {
             $scope.news.push({
-                headline : $sce.trustAsHtml(news.data.responseData.results[i].title),
+                headline: $sce.trustAsHtml(news.data.responseData.results[i].title),
                 description: $sce.trustAsHtml(news.data.responseData.results[i].content),
-                url : news.data.responseData.results[i].unescapedUrl,
-                time : news.data.responseData.results[i].publishedDate
+                url: news.data.responseData.results[i].unescapedUrl,
+                time: news.data.responseData.results[i].publishedDate
             });
+
         }
 
         //Social

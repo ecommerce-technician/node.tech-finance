@@ -63727,7 +63727,6 @@ angular.module('NodeTechApp')
                         return GetTicker.getTweets($stateParams.ticker);
                     }
                 }
-
             });
     }]);
 /**
@@ -63816,34 +63815,31 @@ angular.module('NodeTechApp')
  .directive('socialTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/social-tab.html",
-            //controller: "SocialController"
+            templateUrl: "partials/tabs/social-tab.html"
         };
     })
-
     .directive('pressTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/press-tab.html",
-            //controller: "PressController"
+            templateUrl: "partials/tabs/press-tab.html"
         };
     })
-
     .directive('ohlcTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/ohlc-tab.html",
-            //controller: "OhlcController"
+            templateUrl: "partials/tabs/ohlc-tab.html"
         }
     })
-
     .directive('summaryTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/summary-tab.html",
-            //controller: "SummaryController"
+            templateUrl: "partials/tabs/summary-tab.html"
         }
     });
+/**
+ * Created by alex on 1/30/16.
+ */
+
 angular.module('NodeTechApp')
 
     .controller('RootController', function($scope, user, meta){

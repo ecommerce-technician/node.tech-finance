@@ -50,6 +50,5 @@ angular.module('NodeTechApp')
                         return GetTicker.getTweets($stateParams.ticker);
                     }
                 }
-
             });
     }]);

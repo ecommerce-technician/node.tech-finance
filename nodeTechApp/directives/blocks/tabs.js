@@ -5,24 +5,25 @@ angular.module('NodeTechApp')
  .directive('socialTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/tabs/social-tab.html"
+            templateUrl: "partials/blocks/social-tab.html"
         };
     })
     .directive('pressTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/tabs/press-tab.html"
+            templateUrl: "partials/blocks/press-tab.html"
         };
     })
     .directive('ohlcTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/tabs/ohlc-tab.html"
+            templateUrl: "partials/blocks/ohlc-tab.html"
         }
     })
     .directive('summaryTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/tabs/summary-tab.html"
+            templateUrl: "partials/blocks/summary-tab.html",
+            controller: "SummaryController"
         }
     });

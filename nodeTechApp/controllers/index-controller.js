@@ -33,7 +33,6 @@ angular.module('NodeTechApp')
                 url: news.data.responseData.results[i].unescapedUrl,
                 time: news.data.responseData.results[i].publishedDate
             });
-
         }
 
         //Social
@@ -83,13 +82,67 @@ angular.module('NodeTechApp')
                     useFixedDomain: false,
                     useNiceScale: false,
                     horizontalOff: false,
-                    verticalOff: true,
+                    verticalOff: true
                 }
             }
         };
 
+        $scope.socialOptions = {
+            chart: {
+                type: 'historicalBarChart',
+                height: 450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 65,
+                    left: 50
+                },
+                x: function(d){return d[0];},
+                y: function(d){return d[1];},
+                showValues: true,
+                valueFormat: function(d){
+                    return d3.format(',.1f')(d);
+                },
+                duration: 100,
+                xAxis: {
+                    axisLabel: 'X Axis',
+                    tickFormat: function(d) {
+                        return d3.time.format('%x')(new Date(d));
+                    },
+                    rotateLabels: 30,
+                    showMaxMin: false
+                },
+                yAxis: {
+                    axisLabel: 'Y Axis',
+                    axisLabelDistance: -10,
+                    tickFormat: function(d){
+                        return d3.format(',.1f')(d);
+                    }
+                },
+                tooltip: {
+                    keyFormatter: function(d) {
+                        return d3.time.format('%x')(new Date(d));
+                    }
+                },
+                zoom: {
+                    enabled: false,
+                    scaleExtent: [1, 10],
+                    useFixedDomain: false,
+                    useNiceScale: false,
+                    horizontalOff: false,
+                    verticalOff: true
+                }
+            }
+        }
+
         $scope.data = [];
+        $scope.socialData = [];
         $scope.data.push({values : []});
+        $scope.socialData.push({
+            "key" : "Quantity",
+            "bar" : true,
+            values : []
+        });
 
         for(i=0; i < interactive.data.Dates.length; i++) {
             $scope.data[0].values.push({
@@ -101,5 +154,24 @@ angular.module('NodeTechApp')
                     "volume": 160363400,
                     "adjusted": 164.35
             });
+        }
+
+        for(i=0; i < tweets.data.statuses.length; i++) {
+            function formatDate (unf) {
+                //credit to http://stackoverflow.com/a/13566675/4044067 for this awesome solution
+                function getMonthFromString(mon){
+                    return new Date(Date.parse(mon +" 1, 2016")).getMonth()+1
+                }
+                return [
+                    Date.parse(unf[5] + "-" + "0" + getMonthFromString(unf[1]) + "-" + unf[2]),
+                    tweets.data.statuses[i].retweet_count
+                ];
+
+            }
+
+            $scope.socialData[0].values.push(
+                formatDate(tweets.data.statuses[i].created_at.split(/\s/))
+            );
+
         }
   })

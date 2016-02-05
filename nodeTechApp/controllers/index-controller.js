@@ -42,7 +42,8 @@ angular.module('NodeTechApp')
                 headline : tweets.data.statuses[i].user.screen_name,
                 description: $sce.trustAsHtml(tweets.data.statuses[i].text),
                 url : $sce.trustAsHtml("http://www.twitter.com/" + tweets.data.statuses[i].user.screen_name),
-                time : tweets.data.statuses[i].created_at
+                time : tweets.data.statuses[i].created_at,
+                retweets : tweets.data.statuses[i].retweet_count
             });
         }
 

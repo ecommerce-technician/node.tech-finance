@@ -63706,28 +63706,27 @@ angular.module('NodeTechApp')
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
-                    lookup : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInfo($stateParams.ticker);
+                    lookup : function(GetTicker, $stateParams){
+                        return GetTicker.getInfo($stateParams.ticker);
                     },
-                    interactive : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInteractive($stateParams.ticker);
+                    interactive : function(GetTicker, $stateParams){
+                        return GetTicker.getInteractive($stateParams.ticker);
                     },
-                    quote : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getQuote($stateParams.ticker);
+                    quote : function(GetTicker, $stateParams){
+                        return GetTicker.getQuote($stateParams.ticker);
                     },
-                    news : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getNews($stateParams.ticker);
+                    news : function(GetTicker, $stateParams){
+                        return GetTicker.getNews($stateParams.ticker);
                     },
                     page : function(){
                         return {
                             headline : 'welcome to node tech finance!'
                         };
                     },
-                    tweets : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getTweets($stateParams.ticker);
+                    tweets : function(GetTicker, $stateParams){
+                        return GetTicker.getTweets($stateParams.ticker);
                     }
                 }
-
             });
     }]);
 /**
@@ -63765,7 +63764,7 @@ angular.module('NodeTechApp')
         };
     })
 
-    .service('GetTickerCorrect', function ($http) {
+    .service('GetTicker', function ($http) {
 
         var myPublicVar = 'im public';
 
@@ -63810,36 +63809,110 @@ angular.module('NodeTechApp')
     });
 
 /**
- * Created by alex on 1/27/16.
+ * Created by ecommerce-technician on 9/20/15.
  */
 angular.module('NodeTechApp')
- .directive('socialTab', function($sce){
-        return{
-            restrict: "E",
-            template: $sce.trustAsHtml("<md-tab label=\"Social\"><md-subheader class=\"md-no-sticky\">{{lookup.Name}} Social mentions</md-subheader><md-list-item class=\"md-3-line\" ng-repeat=\"item in tweets | limitTo : 10\"><div class=\"md-list-item-text\" layout=\"column\"> <a ng-href=\"{{item.url}}\"><h3>{{item.headline}}</h3></a><h4 ng-bind-html=\"item.description\"></h4></div></md-list-item></md-tab><md-tab label=\"Combine\"></md-tab>")
+
+    .controller('IndexController', function($scope, $http, $sce, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news, tweets){
+
+        var interactive = interactive;
+        $scope.page = page;
+        $scope.closingData = [];
+        $scope.news = [];
+        $scope.lookup = lookup;
+        $scope.quote = quote;
+        $scope.tweets = [];
+
+
+
+        //Loading bar
+        $scope.loading = false;
+
+        //Reloads page if new ticker is searched
+        $scope.submit = function() {
+            $scope.loading = true;
+            $state.go('root.index', {ticker : this.text})
+                .then(function(){ $scope.loading = false;})
         };
-    })
 
-    .directive('pressTab', function($sce){
-        return{
-            restrict: "E",
-            template: $sce.trustAsHtml("<md-tab label=\"Press\"> <md-subheader class=\"md-no-sticky\">{{lookup.Name}} News</md-subheader><md-list-item class=\"md-3-line\" ng-repeat=\"item in news\"><div class=\"md-list-item-text\" layout=\"column\"><a ng-href=\"{{item.url}}\"><h3 ng-bind-html=\"item.headline\"></h3></a><h4 ng-bind-html=\"item.description\"></h4> </div> </md-list-item><md-divider></md-divider></md-list></md-tab>")
+        //press
+        for (i = 0; i < news.data.responseData.results.length; i++) {
+            $scope.news.push({
+                headline: $sce.trustAsHtml(news.data.responseData.results[i].title),
+                description: $sce.trustAsHtml(news.data.responseData.results[i].content),
+                url: news.data.responseData.results[i].unescapedUrl,
+                time: news.data.responseData.results[i].publishedDate
+            });
+
+        }
+
+        //Social
+        for(i=0; i < tweets.data.statuses.length; i++) {
+            $scope.tweets.push({
+                headline : tweets.data.statuses[i].user.screen_name,
+                description: $sce.trustAsHtml(tweets.data.statuses[i].text),
+                url : $sce.trustAsHtml("http://www.twitter.com/" + tweets.data.statuses[i].user.screen_name),
+                time : tweets.data.statuses[i].created_at,
+                retweets : tweets.data.statuses[i].retweet_count
+            });
+        }
+
+        //OHLC D3 Chart
+        $scope.options = {
+            chart: {
+                type: 'candlestickBarChart',
+                height: 450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 40,
+                    left: 60
+                },
+                x: function(d){ return d['date']; },
+                y: function(d){ return d['close']; },
+                duration: 100,
+
+                xAxis: {
+                    axisLabel: 'Dates',
+                    tickFormat: function(d) {
+                        return d3.time.format('%x')(new Date(d));
+                    },
+                    showMaxMin: false
+                },
+
+                yAxis: {
+                    axisLabel: 'Stock Price',
+                    tickFormat: function(d){
+                        return '$' + d3.format(',.1f')(d);
+                    },
+                    showMaxMin: false
+                },
+                zoom: {
+                    enabled: false,
+                    scaleExtent: [1, 10],
+                    useFixedDomain: false,
+                    useNiceScale: false,
+                    horizontalOff: false,
+                    verticalOff: true,
+                }
+            }
         };
-    })
 
-    .directive('ohlcTab', function($sce){
-        return{
-            restrict: "E",
-            template: $sce.trustAsHtml("<md-tab label=\"OHLC Chart\"><nvd3 flex options=\"options\" data=\"data\"></nvd3></md-tab>")
-        }
-    })
+        $scope.data = [];
+        $scope.data.push({values : []});
 
-    .directive('summaryTab', function($sce){
-        return{
-            restrict: "E",
-            template: $sce.trustAsHtml("<md-tab label=\"Summary\"><table><tr ng-repeat=\"(key, val) in quote.data\"><td class=\"md-title\">{{key}}</td><td>{{val}}</td></tr></table></md-tab>")
+        for(i=0; i < interactive.data.Dates.length; i++) {
+            $scope.data[0].values.push({
+                    "date": Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]),
+                    "open": interactive.data.Elements[0].DataSeries.open.values[i],
+                    "high": interactive.data.Elements[0].DataSeries.high.values[i],
+                    "low": interactive.data.Elements[0].DataSeries.low.values[i],
+                    "close": interactive.data.Elements[0].DataSeries.close.values[i],
+                    "volume": 160363400,
+                    "adjusted": 164.35
+            });
         }
-    });
+  })
 angular.module('NodeTechApp')
 
     .controller('RootController', function($scope, user, meta){
@@ -63847,6 +63920,42 @@ angular.module('NodeTechApp')
         $scope.meta = meta;
     });
 
+/**
+ * Created by alex on 1/31/16.
+ */
+angular.module('NodeTechApp')
+    .controller('SummaryController', function($scope){
+        $scope.summary = "hey there";
+    })
+/**
+ * Created by alex on 1/27/16.
+ */
+angular.module('NodeTechApp')
+ .directive('socialTab', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/social-tab.html"
+        };
+    })
+    .directive('pressTab', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/press-tab.html"
+        };
+    })
+    .directive('ohlcTab', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/ohlc-tab.html"
+        }
+    })
+    .directive('summaryTab', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/summary-tab.html",
+            controller: "SummaryController"
+        }
+    });
 !function() {
   var d3 = {
     version: "3.5.12"
@@ -87277,107 +87386,3 @@ nv.version = "1.8.1";
             };
         });
 })();
-
-/**
- * Created by ecommerce-technician on 9/20/15.
- */
-angular.module('NodeTechApp')
-
-    .controller('IndexController', function($scope, $http, $sce, $rootScope,$state, $stateParams, page, interactive, lookup, quote, news, tweets){
-
-        var interactive = interactive;
-        $scope.page = page;
-        $scope.closingData = [];
-        $scope.lookup = lookup;
-        $scope.quote = quote;
-        $scope.news = [];
-        $scope.tweets = [];
-
-
-
-        //Loading bar
-        $scope.loading = false;
-
-        //Reloads page if new ticker is searched
-        $scope.submit = function() {
-            $scope.loading = true;
-            $state.go('root.index', {ticker : this.text})
-                .then(function(){ $scope.loading = false;})
-        };
-
-        //News
-        for(i=0; i < news.data.responseData.results.length; i++) {
-            $scope.news.push({
-                headline : $sce.trustAsHtml(news.data.responseData.results[i].title),
-                description: $sce.trustAsHtml(news.data.responseData.results[i].content),
-                url : news.data.responseData.results[i].unescapedUrl,
-                time : news.data.responseData.results[i].publishedDate
-            });
-        }
-
-        //Social
-        for(i=0; i < tweets.data.statuses.length; i++) {
-            $scope.tweets.push({
-                headline : tweets.data.statuses[i].user.screen_name,
-                description: $sce.trustAsHtml(tweets.data.statuses[i].text),
-                url : $sce.trustAsHtml("http://www.twitter.com/" + tweets.data.statuses[i].user.screen_name),
-                time : tweets.data.statuses[i].created_at
-            });
-        }
-
-        //OHLC D3 Chart
-        $scope.options = {
-            chart: {
-                type: 'candlestickBarChart',
-                height: 450,
-                margin : {
-                    top: 20,
-                    right: 20,
-                    bottom: 40,
-                    left: 60
-                },
-                x: function(d){ return d['date']; },
-                y: function(d){ return d['close']; },
-                duration: 100,
-
-                xAxis: {
-                    axisLabel: 'Dates',
-                    tickFormat: function(d) {
-                        return d3.time.format('%x')(new Date(d));
-                    },
-                    showMaxMin: false
-                },
-
-                yAxis: {
-                    axisLabel: 'Stock Price',
-                    tickFormat: function(d){
-                        return '$' + d3.format(',.1f')(d);
-                    },
-                    showMaxMin: false
-                },
-                zoom: {
-                    enabled: false,
-                    scaleExtent: [1, 10],
-                    useFixedDomain: false,
-                    useNiceScale: false,
-                    horizontalOff: false,
-                    verticalOff: true,
-                }
-            }
-        };
-
-        $scope.data = [];
-        $scope.data.push({values : []});
-
-        for(i=0; i < interactive.data.Dates.length; i++) {
-            $scope.data[0].values.push({
-                    "date": Date.parse(interactive.data.Dates[i].split(/[.T]/)[0]),
-                    "open": interactive.data.Elements[0].DataSeries.open.values[i],
-                    "high": interactive.data.Elements[0].DataSeries.high.values[i],
-                    "low": interactive.data.Elements[0].DataSeries.low.values[i],
-                    "close": interactive.data.Elements[0].DataSeries.close.values[i],
-                    "volume": 160363400,
-                    "adjusted": 164.35
-            });
-        }
-  })

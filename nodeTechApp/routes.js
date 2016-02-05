@@ -29,27 +29,26 @@ angular.module('NodeTechApp')
                 templateUrl: 'partials/index.html',
                 controller: 'IndexController',
                 resolve : {
-                    lookup : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInfo($stateParams.ticker);
+                    lookup : function(GetTicker, $stateParams){
+                        return GetTicker.getInfo($stateParams.ticker);
                     },
-                    interactive : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getInteractive($stateParams.ticker);
+                    interactive : function(GetTicker, $stateParams){
+                        return GetTicker.getInteractive($stateParams.ticker);
                     },
-                    quote : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getQuote($stateParams.ticker);
+                    quote : function(GetTicker, $stateParams){
+                        return GetTicker.getQuote($stateParams.ticker);
                     },
-                    news : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getNews($stateParams.ticker);
+                    news : function(GetTicker, $stateParams){
+                        return GetTicker.getNews($stateParams.ticker);
                     },
                     page : function(){
                         return {
                             headline : 'welcome to node tech finance!'
                         };
                     },
-                    tweets : function(GetTickerCorrect, $stateParams){
-                        return GetTickerCorrect.getTweets($stateParams.ticker);
+                    tweets : function(GetTicker, $stateParams){
+                        return GetTicker.getTweets($stateParams.ticker);
                     }
                 }
-
             });
     }]);

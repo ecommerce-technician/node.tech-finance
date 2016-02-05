@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var uncss = require('gulp-uncss');
 var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
+var nano = require('gulp-cssnano');
 
 /*compile sass and css*/
 gulp.task('sass', function () {
@@ -36,12 +37,11 @@ gulp.task('scripts', function() {
         './nodeTechApp/app.js',
         './nodeTechApp/routes.js',
         './nodeTechApp/services/*.js',
-        './nodeTechApp/directives/*.js',
-        './nodeTechApp/root-controller.js',
+        './nodeTechApp/controllers/*.js',
+        './nodeTechApp/directives/blocks/*.js',
         './bower_components/d3/d3.js',
         './bower_components/nvd3/build/nv.d3.js',
         './bower_components/angular-nvd3/dist/angular-nvd3.js',
-        './nodeTechApp/index-controller.js'
     ])
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./public/js/'));

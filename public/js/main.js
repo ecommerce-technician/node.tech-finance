@@ -63703,31 +63703,35 @@ angular.module('NodeTechApp')
 
             .state('root.index', {
                 url: '/?ticker',
-                templateUrl: 'partials/index.html',
+                templateUrl: 'partials/blocks/ticker.html',
                 controller: 'IndexController',
-                resolve : {
-                    lookup : function(GetTicker, $stateParams){
+                resolve: {
+                    lookup: function (GetTicker, $stateParams) {
                         return GetTicker.getInfo($stateParams.ticker);
                     },
-                    interactive : function(GetTicker, $stateParams){
+                    interactive: function (GetTicker, $stateParams) {
                         return GetTicker.getInteractive($stateParams.ticker);
                     },
-                    quote : function(GetTicker, $stateParams){
+                    quote: function (GetTicker, $stateParams) {
                         return GetTicker.getQuote($stateParams.ticker);
                     },
-                    news : function(GetTicker, $stateParams){
+                    news: function (GetTicker, $stateParams) {
                         return GetTicker.getNews($stateParams.ticker);
                     },
-                    page : function(){
+                    page: function () {
                         return {
-                            headline : 'welcome to node tech finance!'
+                            headline: 'welcome to node tech finance!'
                         };
                     },
-                    tweets : function(GetTicker, $stateParams){
+                    tweets: function (GetTicker, $stateParams) {
                         return GetTicker.getTweets($stateParams.ticker);
                     }
                 }
-            });
+            },
+            {
+                url: '/',
+                templateUrl: 'partials/welcome.html'
+            })
     }]);
 /**
  * Created by alex on 12/17/15.

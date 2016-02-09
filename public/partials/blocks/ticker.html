@@ -1,0 +1,52 @@
+<md-toolbar class="md-whiteframe-z3" layout-padding>
+    <div>
+        {{meta.title}}
+    </div>
+</md-toolbar>
+<md-content flex layout-padding>
+    <h1>{{page.headline}}</h1>
+    <div flex layout="column" layout-wrap>
+        <div flex layout-padding>
+            <form ng-submit="submit()" name="searchForm" novalidate>
+                <md-input-container>
+                    <label>Search by ticker and hit enter:</label>
+                    <input type="text" ng-model="text" name="text" required>
+                </md-input-container>
+            </form>
+            <p>
+                Welcome to node.tech finance. A quick a simple way to find and compare your favorite stocks. Our handy finance tool allows you to see a summary of the stock value, OHLC chart, recent press links, and social mentions of any ticker entered above.
+            </p>
+            <md-progress-linear md-mode="indeterminate" ng-show="loading == true"></md-progress-linear>
+        </div>
+        <div flex layout-padding>
+            <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
+            <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
+        </div>
+        <md-tabs md-dynamic-height md-swipe-content="true">
+            <md-tab label="Quote">
+                <md-subheader class="md-no-sticky">
+                    {{lookup.Name}} Today Summary
+                </md-subheader>
+                <summary-tab></summary-tab>
+            </md-tab>
+            <md-tab label="OHLC Chart">
+                <md-subheader class="md-no-sticky">
+                    {{lookup.Name}} OHLC Charts
+                </md-subheader>
+                <ohlc-tab></ohlc-tab>
+            </md-tab>
+            <md-tab label="Press">
+                <md-subheader class="md-no-sticky">
+                    {{lookup.Name}} News
+                </md-subheader>
+                <press-tab></press-tab>
+            </md-tab>
+            <md-tab label="Social">
+                <md-subheader class="md-no-sticky">
+                    {{lookup.Name}} Social mentions
+                </md-subheader>
+                <social-tab></social-tab>
+            </md-tab>
+        </md-tabs>
+    </div>
+</md-content>

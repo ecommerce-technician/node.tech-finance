@@ -1,10 +1,10 @@
 <md-content flex layout-padding>
     <div flex layout="column" layout-wrap>
-        <div flex layout-padding class="md-display-3">
+        <div flex layout-padding>
             <form ng-submit="submit()" name="searchForm" novalidate>
                 <md-input-container>
-                    <label>Search by ticker and hit enter:</label>
-                    <input type="text" ng-model="text" name="text" required>
+                    <label class="md-headline">Search by ticker and hit enter:</label>
+                    <input type="text" ng-model="text" name="text" required class="md-display-3">
                 </md-input-container>
             </form>
             <md-progress-linear md-mode="indeterminate" ng-show="loading == true"></md-progress-linear>

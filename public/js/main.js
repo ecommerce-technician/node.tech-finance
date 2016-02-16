@@ -63694,7 +63694,6 @@ angular.module('NodeTechApp')
                     user: function () {
                         return {name: 'dummyUser', age: 50};
                     },
-
                     meta: function () {
                         return {title: 'Node.Tech Finance'};
                     }
@@ -63703,31 +63702,35 @@ angular.module('NodeTechApp')
 
             .state('root.index', {
                 url: '/?ticker',
-                templateUrl: 'partials/index.html',
+                templateUrl: 'partials/blocks/ticker.html',
                 controller: 'IndexController',
-                resolve : {
-                    lookup : function(GetTicker, $stateParams){
+                resolve: {
+                    lookup: function (GetTicker, $stateParams) {
                         return GetTicker.getInfo($stateParams.ticker);
                     },
-                    interactive : function(GetTicker, $stateParams){
+                    interactive: function (GetTicker, $stateParams) {
                         return GetTicker.getInteractive($stateParams.ticker);
                     },
-                    quote : function(GetTicker, $stateParams){
+                    quote: function (GetTicker, $stateParams) {
                         return GetTicker.getQuote($stateParams.ticker);
                     },
-                    news : function(GetTicker, $stateParams){
+                    news: function (GetTicker, $stateParams) {
                         return GetTicker.getNews($stateParams.ticker);
                     },
-                    page : function(){
+                    page: function () {
                         return {
-                            headline : 'welcome to node tech finance!'
+                            headline: 'welcome to node tech finance!'
                         };
                     },
-                    tweets : function(GetTicker, $stateParams){
+                    tweets: function (GetTicker, $stateParams) {
                         return GetTicker.getTweets($stateParams.ticker);
                     }
                 }
-            });
+            },
+            {
+                url: '/',
+                templateUrl: 'partials/welcome.html'
+            })
     }]);
 /**
  * Created by alex on 12/17/15.
@@ -63985,6 +63988,15 @@ angular.module('NodeTechApp')
 
         }
   })
+/**
+ * Created by alex on 2/15/16.
+ */
+angular.module('NodeTechApp')
+    .controller('LayoutController', function($scope){
+        $scope.layout = {
+            title: "node.tech/finance"
+        }
+    })
 angular.module('NodeTechApp')
 
     .controller('RootController', function($scope, user, meta){
@@ -64000,31 +64012,49 @@ angular.module('NodeTechApp')
         $scope.summary = "hey there";
     })
 /**
+ * Created by alex on 2/15/16.
+ */
+angular.module('NodeTechApp')
+    .directive('mainHeader', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/layout/main-header.html",
+            controller: "LayoutController"
+        };
+    })
+    .directive('mainFooter', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/layout/main-footer.html",
+            controller: "LayoutController"
+        };
+    });
+/**
  * Created by alex on 1/27/16.
  */
 angular.module('NodeTechApp')
  .directive('socialTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/blocks/social-tab.html"
+            templateUrl: "partials/blocks/social.html"
         };
     })
     .directive('pressTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/blocks/press-tab.html"
+            templateUrl: "partials/blocks/press.html"
         };
     })
     .directive('ohlcTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/blocks/ohlc-tab.html"
+            templateUrl: "partials/blocks/ohlc.html"
         }
     })
     .directive('summaryTab', function(){
         return{
             restrict: "E",
-            templateUrl: "partials/blocks/summary-tab.html",
+            templateUrl: "partials/blocks/summary.html",
             controller: "SummaryController"
         }
     });

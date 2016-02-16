@@ -52,8 +52,9 @@ app.get('/api/v1/google-news/search/:ticker', function(req, res){
 });
 
 app.get('/api/v1/twitter/search/:ticker', function(req, res){
-    twitterClient.get('search/tweets', {q:req.params.ticker,result_type:'mixed',count:50,lang:'en'}, function(error, tweets, res){
-        shipIt(tweets)
+    twitterClient.get('search/tweets', {q:req.params.ticker,result_type:'mixed',count:99,lang:'en',include_entities: 'false'}, function(error, tweets, res){
+        shipIt(tweets);
+        since = tweets.statuses.id;
     });
 
     function shipIt(tweets) {

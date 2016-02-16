@@ -2,7 +2,7 @@
 <md-list-item class="md-3-line" ng-repeat="item in tweets | orderBy : '-retweets'">
     <div class="md-list-item-text" layout="column">
         <div flex>
-            {{item.retweets}}
+            Retweets: {{item.retweets}}
         </div>
         <div flex>
             <a ng-href="{{item.url}}">

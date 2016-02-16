@@ -1,29 +1,20 @@
-<md-toolbar class="md-whiteframe-z3" layout-padding>
-    <div>
-        {{meta.title}}
-    </div>
-</md-toolbar>
 <md-content flex layout-padding>
-    <h1>{{page.headline}}</h1>
     <div flex layout="column" layout-wrap>
-        <div flex layout-padding>
+        <div flex layout-padding class="md-display-3">
             <form ng-submit="submit()" name="searchForm" novalidate>
                 <md-input-container>
                     <label>Search by ticker and hit enter:</label>
                     <input type="text" ng-model="text" name="text" required>
                 </md-input-container>
             </form>
-            <p>
-                Welcome to node.tech finance. A quick a simple way to find and compare your favorite stocks. Our handy finance tool allows you to see a summary of the stock value, OHLC chart, recent press links, and social mentions of any ticker entered above.
-            </p>
             <md-progress-linear md-mode="indeterminate" ng-show="loading == true"></md-progress-linear>
         </div>
-        <div flex layout-padding>
+        <div flex layout-padding class="md-headline">
             <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
             <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
         </div>
-        <md-tabs md-dynamic-height md-swipe-content="true">
-            <md-tab label="Quote">
+        <md-tabs md-dynamic-height md-swipe-content="true" class="md-display-1">
+            <md-tab label="Quote" class="md-display-2">
                 <md-subheader class="md-no-sticky">
                     {{lookup.Name}} Today Summary
                 </md-subheader>

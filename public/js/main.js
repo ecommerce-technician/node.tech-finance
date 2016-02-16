@@ -63694,7 +63694,6 @@ angular.module('NodeTechApp')
                     user: function () {
                         return {name: 'dummyUser', age: 50};
                     },
-
                     meta: function () {
                         return {title: 'Node.Tech Finance'};
                     }
@@ -63989,6 +63988,15 @@ angular.module('NodeTechApp')
 
         }
   })
+/**
+ * Created by alex on 2/15/16.
+ */
+angular.module('NodeTechApp')
+    .controller('LayoutController', function($scope){
+        $scope.layout = {
+            title: "node.tech/finance"
+        }
+    })
 angular.module('NodeTechApp')
 
     .controller('RootController', function($scope, user, meta){
@@ -64003,6 +64011,24 @@ angular.module('NodeTechApp')
     .controller('SummaryController', function($scope){
         $scope.summary = "hey there";
     })
+/**
+ * Created by alex on 2/15/16.
+ */
+angular.module('NodeTechApp')
+    .directive('mainHeader', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/layout/main-header.html",
+            controller: "LayoutController"
+        };
+    })
+    .directive('mainFooter', function(){
+        return{
+            restrict: "E",
+            templateUrl: "partials/blocks/layout/main-footer.html",
+            controller: "LayoutController"
+        };
+    });
 /**
  * Created by alex on 1/27/16.
  */

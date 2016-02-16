@@ -17,7 +17,6 @@ angular.module('NodeTechApp')
                     user: function () {
                         return {name: 'dummyUser', age: 50};
                     },
-
                     meta: function () {
                         return {title: 'Node.Tech Finance'};
                     }

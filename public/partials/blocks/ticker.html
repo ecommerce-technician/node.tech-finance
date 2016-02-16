@@ -13,18 +13,18 @@
             <span id="ticker-symbol"><strong>{{lookup.Symbol}}</strong></span>
             <label for="ticker-symbol"><em>{{lookup.Name}}</em></label>
         </div>
-        <md-tabs md-dynamic-height md-swipe-content="true" class="md-display-1">
-            <md-tab label="Quote" class="md-display-2">
-                <md-subheader class="md-no-sticky">
-                    {{lookup.Name}} Today Summary
-                </md-subheader>
-                <summary-tab></summary-tab>
-            </md-tab>
+        <md-tabs md-dynamic-height md-swipe-content="true">
             <md-tab label="OHLC Chart">
                 <md-subheader class="md-no-sticky">
                     {{lookup.Name}} OHLC Charts
                 </md-subheader>
                 <ohlc-tab></ohlc-tab>
+            </md-tab>
+            <md-tab label="Quote" class="md-display-2">
+                <md-subheader class="md-no-sticky">
+                    {{lookup.Name}} Today Summary
+                </md-subheader>
+                <summary-tab></summary-tab>
             </md-tab>
             <md-tab label="Press">
                 <md-subheader class="md-no-sticky">

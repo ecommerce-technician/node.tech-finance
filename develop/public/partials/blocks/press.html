@@ -1,1 +1,7 @@
-<md-list-item class="md-3-line" ng-repeat="item in news"><div class="md-list-item-text" layout="column"><a ng-href="{{item.url}}"><h3 ng-bind-html="item.headline"></h3></a><div ng-bind-html="item.description"></div> </div> </md-list-item><md-divider></md-divider></md-list>
+<md-list-item class="md-3-line" ng-repeat="item in news">
+<md-checkbox ng-model="item.done"></md-checkbox>
+<div class="md-list-item-text">
+    <h3 ng-bind-html="item.headline"></h3>
+    <p ng-bind-html="item.description"></p>
+</div>
+</md-list-item>

@@ -1,14 +1,7 @@
-<nvd3 flex options="socialOptions" data="socialData"></nvd3>
 <md-list-item class="md-3-line" ng-repeat="item in tweets | orderBy : '-retweets'">
-    <div class="md-list-item-text" layout="column">
-        <div flex>
-            Retweets: {{item.retweets}}
-        </div>
-        <div flex>
-            <a ng-href="{{item.url}}">
-                <h3>{{item.headline}}</h3>
-            </a>
-        </div>
-        <div ng-bind-html="item.description"></div>
+    <md-checkbox ng-model="item.done"></md-checkbox>
+    <div class="md-list-item-text">
+        <h3>{{item.headline}}</h3>
+        <p ng-bind-html="item.description"></p>
     </div>
 </md-list-item>
